@@ -19,19 +19,23 @@
       "use": "@now/node"
     },
     {
+      "src": "backend/src/routes/v1/deletePost.ts",
+      "use": "@now/node"
+    },
+    {
       "src": "backend/src/routes/v1/user/username.ts",
       "use": "@now/node"
     },
     {
-      "src": "backend/src/routes/v1/user/login.ts",
+      "src": "backend/src/routes/v1/auth/login.ts",
       "use": "@now/node"
     },
     {
-      "src": "backend/src/routes/v1/user/register.ts",
+      "src": "backend/src/routes/v1/auth/register.ts",
       "use": "@now/node"
     },
     {
-      "src": "backend/src/routes/v1/user/logout.ts",
+      "src": "backend/src/routes/v1/auth/logout.ts",
       "use": "@now/node"
     }
   ],
@@ -47,48 +51,41 @@
     {
       "src": "/v1/posts",
       "dest": "backend/src/routes/v1/posts.ts",
-      "headers": {
-        "Cache-Control": "max-age=300, s-maxage=300"
-      },
       "methods": ["GET"]
     },
     {
-      "src": "/v1/post/(?<_id>[^/]+)$",
+      "src": "/v1/posts/(?<_id>[^/]+)$",
       "dest": "backend/src/routes/v1/post.ts?_id=$_id",
-      "headers": {
-        "Cache-Control": "max-age=300, s-maxage=86400"
-      },
       "methods": ["GET"]
     },
     {
-      "src": "/v1/post",
+      "src": "/v1/posts",
       "dest": "backend/src/routes/v1/createPost.ts",
-      "headers": {
-        "Cache-Control": "max-age=300, s-maxage=86400"
-      },
       "methods": ["POST"]
+    },
+    {
+      "src": "/v1/posts/(?<_id>[^/]+)$",
+      "dest": "backend/src/routes/v1/deletePost.ts?_id=$_id",
+      "methods": ["DELETE"]
     },
     {
       "src": "/v1/user/(?<username>[^/]+)$",
       "dest": "backend/src/routes/v1/user/username.ts?username=$username",
-      "headers": {
-        "Cache-Control": "max-age=300, s-maxage=86400"
-      },
       "methods": ["GET"]
     },
     {
-      "src": "/v1/user/login",
-      "dest": "backend/src/routes/v1/user/login.ts",
+      "src": "/v1/auth/login",
+      "dest": "backend/src/routes/v1/auth/login.ts",
       "methods": ["POST"]
     },
     {
-      "src": "/v1/user/register",
-      "dest": "backend/src/routes/v1/user/register.ts",
+      "src": "/v1/auth/register",
+      "dest": "backend/src/routes/v1/auth/register.ts",
       "methods": ["POST"]
     },
     {
-      "src": "/v1/user/logout",
-      "dest": "backend/src/routes/v1/user/logout.ts",
+      "src": "/v1/auth/logout",
+      "dest": "backend/src/routes/v1/auth/logout.ts",
       "methods": ["GET"]
     }
   ],
