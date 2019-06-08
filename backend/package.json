@@ -1,0 +1,67 @@
+{
+  "name": "kanzan-backend",
+  "version": "0.1.0",
+  "private": true,
+  "description": "kanzan serverless RESTful API",
+  "main": "./dist/index",
+  "scripts": {
+    "dev": "now dev",
+    "build-ts": "tsc",
+    "watch-ts": "tsc -w",
+    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "lint-fix": "prettier --write \"src/**/*.ts*\" && tslint -p tsconfig.json --fix",
+    "test": "cross-env NODE_ENV=test jest --verbose --runInBand"
+  },
+  "author": "xdk78 <xdk78888@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "base64url": "^3.0.1",
+    "bcrypt": "^3.0.6",
+    "cross-env": "^5.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "koa": "^2.7.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-helmet": "^4.2.0",
+    "koa-logger": "^3.2.0",
+    "mongodb": "^3.2.7",
+    "mongoose": "^5.5.14",
+    "typegoose": "^5.7.1"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^3.0.0",
+    "@types/jest": "^24.0.13",
+    "@types/koa": "^2.0.48",
+    "@types/koa-bodyparser": "^4.3.0",
+    "@types/koa-logger": "^3.1.1",
+    "@types/node": "^12.0.7",
+    "@types/jsonwebtoken": "^8.3.2",
+    "@types/mongoose": "^5.5.5",
+    "dotenv-safe": "^6.1.0",
+    "reflect-metadata": "^0.1.13",
+    "jest": "^24.8.0",
+    "prettier": "^1.18.2",
+    "supertest": "^4.0.2",
+    "ts-jest": "^24.0.2",
+    "ts-node": "^8.2.0",
+    "ts-node-dev": "^1.0.0-pre.39",
+    "tslint": "^5.17.0",
+    "tslint-config-airbnb": "^5.11.1",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.5.1"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
+  }
+}

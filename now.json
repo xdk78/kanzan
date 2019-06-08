@@ -1,0 +1,99 @@
+{
+  "name": "kanzan",
+  "version": 2,
+  "builds": [
+    {
+      "src": "backend/src/routes/v1/index.ts",
+      "use": "@now/node"
+    },
+    {
+      "src": "backend/src/routes/v1/posts.ts",
+      "use": "@now/node"
+    },
+    {
+      "src": "backend/src/routes/v1/post.ts",
+      "use": "@now/node"
+    },
+    {
+      "src": "backend/src/routes/v1/createPost.ts",
+      "use": "@now/node"
+    },
+    {
+      "src": "backend/src/routes/v1/user/username.ts",
+      "use": "@now/node"
+    },
+    {
+      "src": "backend/src/routes/v1/user/login.ts",
+      "use": "@now/node"
+    },
+    {
+      "src": "backend/src/routes/v1/user/register.ts",
+      "use": "@now/node"
+    },
+    {
+      "src": "backend/src/routes/v1/user/logout.ts",
+      "use": "@now/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/v1",
+      "dest": "backend/src/routes/v1/index.ts",
+      "headers": {
+        "Cache-Control": "max-age=0, s-maxage=31536000"
+      },
+      "methods": ["GET"]
+    },
+    {
+      "src": "/v1/posts",
+      "dest": "backend/src/routes/v1/posts.ts",
+      "headers": {
+        "Cache-Control": "max-age=300, s-maxage=300"
+      },
+      "methods": ["GET"]
+    },
+    {
+      "src": "/v1/post/(?<_id>[^/]+)$",
+      "dest": "backend/src/routes/v1/post.ts?_id=$_id",
+      "headers": {
+        "Cache-Control": "max-age=300, s-maxage=86400"
+      },
+      "methods": ["GET"]
+    },
+    {
+      "src": "/v1/post",
+      "dest": "backend/src/routes/v1/createPost.ts",
+      "headers": {
+        "Cache-Control": "max-age=300, s-maxage=86400"
+      },
+      "methods": ["POST"]
+    },
+    {
+      "src": "/v1/user/(?<username>[^/]+)$",
+      "dest": "backend/src/routes/v1/user/username.ts?username=$username",
+      "headers": {
+        "Cache-Control": "max-age=300, s-maxage=86400"
+      },
+      "methods": ["GET"]
+    },
+    {
+      "src": "/v1/user/login",
+      "dest": "backend/src/routes/v1/user/login.ts",
+      "methods": ["POST"]
+    },
+    {
+      "src": "/v1/user/register",
+      "dest": "backend/src/routes/v1/user/register.ts",
+      "methods": ["POST"]
+    },
+    {
+      "src": "/v1/user/logout",
+      "dest": "backend/src/routes/v1/user/logout.ts",
+      "methods": ["GET"]
+    }
+  ],
+  "env": {
+    "MONGODB_URI": "@kanzan-mongodb-uri",
+    "SECRET_TOKEN": "@kanzan-secret-token"
+  }
+}
