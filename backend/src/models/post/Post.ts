@@ -17,4 +17,7 @@ export default class Post extends Typegoose {
 
   @prop({ required: true })
   createdAt: string
+
+  @prop()
+  updatedAt?: string
 }

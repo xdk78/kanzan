@@ -30,7 +30,7 @@ async function main(ctx: KContext) {
       if (user) {
         await user.save()
 
-        ctx.status = 200
+        ctx.status = 201
         ctx.body = {
           data: {
             _id: user._id,

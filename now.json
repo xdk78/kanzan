@@ -23,6 +23,10 @@
       "use": "@now/node"
     },
     {
+      "src": "backend/src/routes/v1/updatePost.ts",
+      "use": "@now/node"
+    },
+    {
       "src": "backend/src/routes/v1/user/username.ts",
       "use": "@now/node"
     },
@@ -67,6 +71,11 @@
       "src": "/v1/posts/(?<_id>[^/]+)$",
       "dest": "backend/src/routes/v1/deletePost.ts?_id=$_id",
       "methods": ["DELETE"]
+    },
+    {
+      "src": "/v1/posts/(?<_id>[^/]+)$",
+      "dest": "backend/src/routes/v1/updatePost.ts?_id=$_id",
+      "methods": ["PUT"]
     },
     {
       "src": "/v1/user/(?<username>[^/]+)$",
