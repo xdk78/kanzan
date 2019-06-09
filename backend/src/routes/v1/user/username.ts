@@ -23,6 +23,7 @@ async function main(ctx: KContext) {
           username: user.username,
           email: user.email,
           createdAt: user.createdAt,
+          updatedAt: user.updatedAt,
           posts: user.posts
         }
       }

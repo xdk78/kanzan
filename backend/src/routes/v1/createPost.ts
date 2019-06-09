@@ -14,12 +14,15 @@ async function main(ctx: KContext) {
 
     const { title, description, tags } = ctx.request.body as Post
 
+    const isoDate = new Date().toISOString()
+
     const newPost = new postModel({
       title,
       description,
       tags,
       author: ctx.state.user._id,
-      createdAt: new Date().toISOString()
+      createdAt: isoDate,
+      updatedAt: isoDate
     })
 
     await newPost.save()

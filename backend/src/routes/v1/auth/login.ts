@@ -26,6 +26,7 @@ async function main(ctx: KContext) {
             username: userFromDb.username,
             email: userFromDb.email,
             createdAt: userFromDb.createdAt,
+            updatedAt: userFromDb.updatedAt,
             posts: userFromDb.posts,
             token
           }

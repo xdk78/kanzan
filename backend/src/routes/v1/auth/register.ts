@@ -18,12 +18,14 @@ async function main(ctx: KContext) {
       ctx.throw(403, 'User does exit')
     } else {
       const userSecret = getRandomString(32)
+      const isoDate = new Date().toISOString()
 
       const user = new userModel({
         username: ctx.request.body.username,
         email: ctx.request.body.email,
         password: await hash(ctx.request.body.password, saltRounds),
-        createdAt: new Date().toISOString(),
+        createdAt: isoDate,
+        updatedAt: isoDate,
         secret: userSecret
       })
 
@@ -37,6 +39,7 @@ async function main(ctx: KContext) {
             username: user.username,
             email: user.email,
             createdAt: user.createdAt,
+            updatedAt: user.updatedAt,
             posts: user.posts
           }
         }

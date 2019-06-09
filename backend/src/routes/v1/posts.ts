@@ -8,7 +8,7 @@ async function main(ctx: KContext) {
     const existingConnection = await connection()
 
     const postModel = new Post().getModelForClass(Post, { existingConnection: await connection() })
-    const posts = await postModel.find()
+    const posts = await postModel.find().sort({ createdAt: 'desc' })
 
     ctx.status = 200
     ctx.body = { data: posts }

@@ -24,6 +24,9 @@ export default class User extends Typegoose {
   @prop({ required: true })
   createdAt: string
 
+  @prop()
+  updatedAt?: string
+
   @arrayProp({ itemsRef: { name: 'Post' } })
   posts?: Ref<Post>[]
 
