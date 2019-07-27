@@ -1,24 +1,31 @@
 import Koa from 'koa'
 import { createApp, KContext } from '../..'
-import connection from '../../utils/db'
+import { dbConfing } from '../../utils/db'
+import mongoose from 'mongoose'
 import Post from '../../models/post/Post'
+import User from '../../models/User'
 
 async function main(ctx: KContext) {
   try {
-    const existingConnection = await connection()
-    const postModel = new Post().getModelForClass(Post, { existingConnection: await connection() })
-    const post = await postModel.findById(ctx.query._id)
+    const existingConnection = await mongoose.connect(process.env.MONGODB_URI, dbConfing)
+
+    const postModel = new Post().getModelForClass(Post, { existingMongoose: existingConnection })
+    const userModel = new User().getModelForClass(User, { existingMongoose: existingConnection })
+
+    const post = await postModel
+      .findById(ctx.query._id)
+      .populate([{ path: 'author', model: userModel }])
+    await existingConnection.disconnect()
+
     if (post) {
       ctx.status = 200
       ctx.body = { data: post }
-
-      existingConnection.close()
     } else {
       ctx.throw(404, `Could not find post: ${ctx.query._id}`)
-      existingConnection.close()
+      await existingConnection.disconnect()
     }
 
-    existingConnection.close()
+    await existingConnection.disconnect()
   } catch (error) {
     throw error
   }

@@ -1,14 +1,15 @@
 import Koa from 'koa'
 import { createApp, KContext } from '../../..'
-import connection from '../../../utils/db'
+import { dbConfing } from '../../../utils/db'
+import mongoose from 'mongoose'
 import User from '../../../models/User'
 import { hash } from 'bcrypt'
 import { getRandomString, saltRounds } from '../../../utils/authUtils'
 
 async function main(ctx: KContext) {
   try {
-    const existingConnection = await connection()
-    const userModel = new User().getModelForClass(User, { existingConnection })
+    const existingConnection = await mongoose.connect(process.env.MONGODB_URI, dbConfing)
+    const userModel = new User().getModelForClass(User, { existingMongoose: existingConnection })
     if (
       await userModel.findOne({
         username: ctx.request.body.username,
@@ -31,23 +32,15 @@ async function main(ctx: KContext) {
 
       if (user) {
         await user.save()
+        await existingConnection.disconnect()
 
         ctx.status = 201
         ctx.body = {
-          data: {
-            _id: user._id,
-            username: user.username,
-            email: user.email,
-            createdAt: user.createdAt,
-            updatedAt: user.updatedAt,
-            posts: user.posts
-          }
+          data: {}
         }
-
-        existingConnection.close()
       } else {
         ctx.throw(403, 'Wrong credentials')
-        existingConnection.close()
+        await existingConnection.disconnect()
       }
     }
   } catch (error) {

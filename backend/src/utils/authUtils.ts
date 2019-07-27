@@ -8,15 +8,14 @@ import { IncomingMessage } from 'http'
  *
  * @param  {string} userSecret User secret
  * @param  {string} id
- * @param  {number} expires    Expiration date (in ms)
- * @return {string}            Signed JSON Web Token
+ * @return {string} Signed JSON Web Token
  */
-export function generateToken(userSecret: string, id: string, expires: number = 3600): string {
+export function generateToken(userSecret: string, data: Object): string {
   const serverSecret = String(process.env.API_JWT_SECRET_TOKEN)
   const tokenSecret = `${userSecret}@${serverSecret}`
 
-  return jwt.sign({ id }, tokenSecret, {
-    expiresIn: Math.floor(Date.now() / 1000) + expires
+  return jwt.sign(data, tokenSecret, {
+    expiresIn: 30 * 24 * 3600 // one month
   })
 }
 

@@ -1,14 +1,20 @@
 import { Context } from 'koa'
 import User from '../models/User'
 import { extractToken, decodeToken, verifyToken } from '../utils/authUtils'
-import connection from '../utils/db'
+import { dbConfing } from '../utils/db'
+import mongoose from 'mongoose'
 
 export default async function(ctx: Context, next: () => Promise<any>) {
-  const userModel = new User().getModelForClass(User, { existingConnection: await connection() })
   try {
+    const existingConnection = await mongoose.connect(process.env.MONGODB_URI, dbConfing)
+
+    const userModel = new User().getModelForClass(User, { existingMongoose: existingConnection })
+
     const token = extractToken(ctx.req)
     const payload = decodeToken(token) as any
     const user = await userModel.findById(payload.payload.id)
+    await existingConnection.disconnect()
+
     const secret = `${user.secret}@${String(process.env.API_JWT_SECRET_TOKEN)}`
     const vaildToken = await verifyToken(token, secret)
 

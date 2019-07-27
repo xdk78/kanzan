@@ -2,6 +2,7 @@ import Koa from 'koa'
 import logger from 'koa-logger'
 import bodyParser from 'koa-bodyparser'
 import helmet from 'koa-helmet'
+import cors from '@koa/cors'
 import User from './models/User'
 import { Ref } from 'typegoose'
 

@@ -10,7 +10,7 @@ export default class Post extends Typegoose {
   title: string
 
   @prop()
-  description: string
+  content: string
 
   @arrayProp({ itemsRef: { name: 'Tag' }, unique: true })
   tags?: Ref<Tag>[]

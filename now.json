@@ -1,5 +1,6 @@
 {
   "name": "kanzan",
+  "alias": "kanzan.now.sh",
   "version": 2,
   "builds": [
     {
@@ -41,11 +42,15 @@
     {
       "src": "backend/src/routes/v1/auth/logout.ts",
       "use": "@now/node"
+    },
+    {
+      "src": "frontend/package.json",
+      "use": "@now/next"
     }
   ],
   "routes": [
     {
-      "src": "/v1",
+      "src": "/api/v1",
       "dest": "backend/src/routes/v1/index.ts",
       "headers": {
         "Cache-Control": "max-age=0, s-maxage=31536000"
@@ -53,49 +58,53 @@
       "methods": ["GET"]
     },
     {
-      "src": "/v1/posts",
+      "src": "/api/v1/posts",
       "dest": "backend/src/routes/v1/posts.ts",
       "methods": ["GET"]
     },
     {
-      "src": "/v1/posts/(?<_id>[^/]+)$",
+      "src": "/api/v1/posts/(?<_id>[^/]+)$",
       "dest": "backend/src/routes/v1/post.ts?_id=$_id",
       "methods": ["GET"]
     },
     {
-      "src": "/v1/posts",
+      "src": "/api/v1/posts",
       "dest": "backend/src/routes/v1/createPost.ts",
       "methods": ["POST"]
     },
     {
-      "src": "/v1/posts/(?<_id>[^/]+)$",
+      "src": "/api/v1/posts/(?<_id>[^/]+)$",
       "dest": "backend/src/routes/v1/deletePost.ts?_id=$_id",
       "methods": ["DELETE"]
     },
     {
-      "src": "/v1/posts/(?<_id>[^/]+)$",
+      "src": "/api/v1/posts/(?<_id>[^/]+)$",
       "dest": "backend/src/routes/v1/updatePost.ts?_id=$_id",
       "methods": ["PUT"]
     },
     {
-      "src": "/v1/user/(?<username>[^/]+)$",
+      "src": "/api/v1/user/(?<username>[^/]+)$",
       "dest": "backend/src/routes/v1/user/username.ts?username=$username",
       "methods": ["GET"]
     },
     {
-      "src": "/v1/auth/login",
+      "src": "/api/v1/auth/login",
       "dest": "backend/src/routes/v1/auth/login.ts",
       "methods": ["POST"]
     },
     {
-      "src": "/v1/auth/register",
+      "src": "/api/v1/auth/register",
       "dest": "backend/src/routes/v1/auth/register.ts",
       "methods": ["POST"]
     },
     {
-      "src": "/v1/auth/logout",
+      "src": "/api/v1/auth/logout",
       "dest": "backend/src/routes/v1/auth/logout.ts",
       "methods": ["GET"]
+    },
+    {
+      "src": "/(.*)",
+      "dest": "frontend/$1"
     }
   ],
   "env": {

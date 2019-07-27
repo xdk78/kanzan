@@ -1,6 +1,7 @@
 import Koa from 'koa'
 import { createApp, KContext } from '../../..'
-import connection from '../../../utils/db'
+import { dbConfing } from '../../../utils/db'
+import mongoose from 'mongoose'
 import User from '../../../models/User'
 import Post from '../../../models/post/Post'
 import { compare } from 'bcrypt'
@@ -8,38 +9,36 @@ import { generateToken } from '../../../utils/authUtils'
 
 async function main(ctx: KContext) {
   try {
-    const existingConnection = await connection()
-    const userModel = new User().getModelForClass(User, { existingConnection })
-    const postModel = new Post().getModelForClass(Post, { existingConnection })
-    const { username, password } = ctx.request.body
+    const existingConnection = await mongoose.connect(process.env.MONGODB_URI, dbConfing)
+
+    const userModel = new User().getModelForClass(User, { existingMongoose: existingConnection })
+    const postModel = new Post().getModelForClass(Post, { existingMongoose: existingConnection })
+    const { email, password } = ctx.request.body
 
     const userFromDb = await userModel
-      .findOne({ username })
+      .findOne({ email })
       .populate([{ path: 'posts', model: postModel }])
+    await existingConnection.disconnect()
+
     if (userFromDb) {
       if (await compare(password, userFromDb.password)) {
-        const token = generateToken(userFromDb.secret, userFromDb.id)
+        const tokenPayload = { _id: userFromDb._id, username: userFromDb.username }
+
+        const token = generateToken(userFromDb.secret, tokenPayload)
+
         ctx.status = 200
         ctx.body = {
           data: {
-            _id: userFromDb._id,
-            username: userFromDb.username,
-            email: userFromDb.email,
-            createdAt: userFromDb.createdAt,
-            updatedAt: userFromDb.updatedAt,
-            posts: userFromDb.posts,
             token
           }
         }
-
-        existingConnection.close()
       } else {
         ctx.throw(403, 'Wrong password')
-        existingConnection.close()
+        await existingConnection.disconnect()
       }
     } else {
       ctx.throw(404, 'Could not find user')
-      existingConnection.close()
+      await existingConnection.disconnect()
     }
   } catch (error) {
     throw error
