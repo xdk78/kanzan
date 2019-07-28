@@ -12,7 +12,8 @@ export default async function(ctx: Context, next: () => Promise<any>) {
 
     const token = extractToken(ctx.req)
     const payload = decodeToken(token) as any
-    const user = await userModel.findById(payload.payload.id)
+
+    const user = await userModel.findById(payload.payload._id)
     await existingConnection.disconnect()
 
     const secret = `${user.secret}@${String(process.env.API_JWT_SECRET_TOKEN)}`
@@ -20,9 +21,7 @@ export default async function(ctx: Context, next: () => Promise<any>) {
 
     ctx.state.user = {
       _id: user._id,
-      username: user.username,
-      email: user.email,
-      createdAt: user.createdAt
+      username: user.username
     }
 
     ctx.state.token = vaildToken

@@ -7,6 +7,7 @@ import { RootState } from '../reducers'
 import PostList from '../containers/PostsContainer'
 import { WithAuthSync } from '../utils/auth'
 import Head from 'next/head'
+import Reply from '../containers/ReplyContainer'
 
 interface IIndexProps {
   readonly loggedIn: boolean
@@ -23,6 +24,7 @@ const Index: React.FunctionComponent<IIndexProps> = ({ loggedIn, token }) => (
       <SubHeader />
       <FeedWrapper>
         <PostsWrapper>
+          {loggedIn && <Reply />}
           <PostList />
         </PostsWrapper>
       </FeedWrapper>
