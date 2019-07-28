@@ -56,7 +56,7 @@ export default class Reply extends React.PureComponent<IReplyProps, IReplyState>
           />
         }
         <Actions>
-          <Submit onClick={this.onSubmit}>Wyślij</Submit>
+          <Submit onClick={this.onSubmit}>Send</Submit>
         </Actions>
       </Wrapper>
     )
