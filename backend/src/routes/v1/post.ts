@@ -14,7 +14,7 @@ async function main(ctx: KContext) {
 
     const post = await postModel
       .findById(ctx.query._id)
-      .populate([{ path: 'author', model: userModel }])
+      .populate([{ path: 'author', model: userModel, select: '_id username' }])
     await existingConnection.disconnect()
 
     if (post) {

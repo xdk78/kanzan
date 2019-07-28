@@ -5,7 +5,7 @@ import LoginForm from '../components/LoginForm'
 
 const mapStateToProps = (state: RootState, props) => ({
   ...props,
-  loggedIn: state.authState.loggedIn,
+  loggedIn: state.authState.loggedIn
 })
 
 const mapDispatchToProps = (dispatch: ThunkDispatch) => ({

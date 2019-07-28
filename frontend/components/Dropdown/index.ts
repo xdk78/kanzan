@@ -13,7 +13,7 @@ const Dropdown = styled.div`
 
 const DropdownMenu = styled.div<IDropdownMenu>`
   position: absolute;
-  left: -150%;
+  left: -75%;
   padding: 0 0;
   color: ${({ theme }) => theme.textColor};
   background: ${({ theme }) => theme.backgroundColor};
@@ -28,5 +28,13 @@ const DropdownMenu = styled.div<IDropdownMenu>`
           flex-direction: column;
         `};
 `
-
-export { Dropdown, DropdownMenu }
+const DropdownIconButton = styled.div`
+  font-size: 24px;
+  cursor: pointer;
+  user-select: none;
+  color: ${({ theme }) => theme.secondaryTextColor};
+  &:hover {
+    color: ${({ theme }) => theme.primaryColor};
+  }
+`
+export { Dropdown, DropdownMenu, DropdownIconButton }

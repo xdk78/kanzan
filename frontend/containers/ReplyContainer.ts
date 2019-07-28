@@ -4,11 +4,11 @@ import Reply from '../components/Reply'
 import { sendPost } from '../actions/postsActions'
 
 const mapStateToProps = (state: RootState, props) => ({
-  ...props,
+  ...props
 })
 
 const mapDispatchToProps = (dispatch: ThunkDispatch) => ({
-  sendPost: (title: string , content: string, ) => {
+  sendPost: (title: string, content: string) => {
     dispatch(sendPost(title, content))
   }
 })

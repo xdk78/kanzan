@@ -4,7 +4,8 @@ import { ThunkResult } from '../reducers'
 import apiClient from '../services/api'
 
 export const FETCH_POSTS = 'FETCH_POSTS'
-export const SEND_POST = 'SEND_POST'
+export const INSERT_POST = 'INSERT_POST'
+// export const SEND_POST = 'SEND_POST'
 
 export interface FetchPosts extends Action {
   type: 'FETCH_POSTS'
@@ -16,15 +17,25 @@ export const setPosts: ActionCreator<FetchPosts> = (posts: Post[]) => ({
   payload: { posts }
 })
 
-export interface SendPost extends Action {
-  type: 'SEND_POST'
-  payload: { title: string; content: string }
+export interface InsertPost extends Action {
+  type: 'INSERT_POST'
+  payload: { post: Post }
 }
 
-export const setPost: ActionCreator<SendPost> = (title: string, content: string) => ({
-  type: SEND_POST,
-  payload: { title, content }
+export const insertPost: ActionCreator<InsertPost> = (post: Post) => ({
+  type: INSERT_POST,
+  payload: { post }
 })
+
+// export interface SendPost extends Action {
+//   type: 'SEND_POST'
+//   payload: { title: string; content: string }
+// }
+
+// export const setPost: ActionCreator<SendPost> = (title: string, content: string) => ({
+//   type: SEND_POST,
+//   payload: { title, content }
+// })
 
 /**
  * Returns posts
@@ -48,11 +59,12 @@ export const sendPost = (title: string, content: string): ThunkResult<void> => a
     const { data } = await apiClient.post('/posts', body, {
       headers: { Authorization: `Bearer ${getState().authState.token}` }
     })
+    const post = data.data
 
-    dispatch(setPost(data.data))
+    dispatch(insertPost(post))
   } catch (error) {
     throw error
   }
 }
 
-export type PostsActions = FetchPosts | SendPost
+export type PostsActions = FetchPosts | InsertPost

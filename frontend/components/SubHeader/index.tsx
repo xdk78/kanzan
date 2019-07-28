@@ -1,7 +1,7 @@
-import { Wrapper, IconButtonWrapper, IconButton, IconLinkButton } from './styles'
+import { Wrapper } from './styles'
 import * as React from 'react'
 import Searchbox from './../Searchbox'
-import { Spacer } from '../shared'
+import { Spacer, IconButtonWrapper, IconButton, IconLinkButton } from '../shared'
 
 interface ISubHeaderProps {
   readonly loggedIn: boolean

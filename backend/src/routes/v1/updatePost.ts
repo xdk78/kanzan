@@ -27,7 +27,7 @@ async function main(ctx: KContext) {
         },
         { new: true }
       )
-      .populate([{ path: 'author', model: userModel }])
+      .populate([{ path: 'author', model: userModel, select: '_id username' }])
     await existingConnection.disconnect()
 
     ctx.status = 200

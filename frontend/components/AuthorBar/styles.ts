@@ -23,14 +23,4 @@ const DateWrapper = styled.div`
   font-size: 12px;
 `
 
-const MoreButton = styled.div`
-  font-size: 24px;
-  cursor: pointer;
-  user-select: none;
-  color: ${props => props.theme.secondaryTextColor};
-  &:hover {
-    color: ${({ theme }) => theme.primaryColor};
-  }
-`
-
-export { MoreButton, AuthorBarWrapper, NicknameDateWrapper, NicknameWrapper, DateWrapper }
+export { AuthorBarWrapper, NicknameDateWrapper, NicknameWrapper, DateWrapper }

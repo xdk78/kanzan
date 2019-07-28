@@ -30,10 +30,15 @@ async function main(ctx: KContext) {
     await newPost.save()
 
     await userModel.findOneAndUpdate({ _id: ctx.state.user._id }, { $push: { posts: newPost } })
+
+    const updated = await postModel
+      .findById(newPost._id)
+      .populate([{ path: 'author', model: userModel, select: '_id username' }])
+
     await existingConnection.disconnect()
 
     ctx.status = 201
-    ctx.body = { data: newPost }
+    ctx.body = { data: updated }
   } catch (error) {
     throw error
   }

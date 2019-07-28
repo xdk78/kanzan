@@ -1,6 +1,6 @@
 import { Reducer } from 'redux'
 import { Post } from '../models'
-import { FETCH_POSTS, PostsActions } from '../actions/postsActions'
+import { FETCH_POSTS, PostsActions, INSERT_POST } from '../actions/postsActions'
 
 export interface PostsState {
   readonly posts: Post[]
@@ -16,6 +16,12 @@ export const postsReducer: Reducer<PostsState> = (state = defaultState, action: 
       return {
         ...state,
         posts: action.payload.posts
+      }
+    }
+    case INSERT_POST: {
+      return {
+        ...state,
+        posts: [action.payload.post, ...state.posts]
       }
     }
     default:

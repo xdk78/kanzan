@@ -3,7 +3,6 @@ import { User } from '../models'
 import { ThunkResult } from '../reducers'
 import apiClient from '../services/api'
 
-
 export const FETCH_USER = 'FETCH_USER'
 
 export interface FetchUser extends Action {

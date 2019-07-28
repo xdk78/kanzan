@@ -15,7 +15,7 @@ async function main(ctx: KContext) {
     const posts = await postModel
       .find()
       .sort({ createdAt: 'desc' })
-      .populate([{ path: 'author', model: userModel }])
+      .populate([{ path: 'author', model: userModel, select: '_id username' }])
 
     ctx.status = 200
     ctx.body = { data: posts }
