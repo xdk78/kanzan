@@ -12,8 +12,13 @@ async function main(ctx: KContext) {
     const postModel = new Post().getModelForClass(Post, { existingMongoose: existingConnection })
     const userModel = new User().getModelForClass(User, { existingMongoose: existingConnection })
 
+    const perPage = 9
+    const page = ctx.query.page || 1
+
     const posts = await postModel
       .find()
+      .skip((perPage * page) - perPage)
+      .limit(perPage)
       .sort({ createdAt: 'desc' })
       .populate([{ path: 'author', model: userModel, select: '_id username' }])
 

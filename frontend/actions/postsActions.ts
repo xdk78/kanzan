@@ -3,19 +3,44 @@ import { Post } from '../models'
 import { ThunkResult } from '../reducers'
 import apiClient from '../services/api'
 
-export const FETCH_POSTS = 'FETCH_POSTS'
+export const FETCH_POSTS_PENDING = 'FETCH_POSTS_PENDING'
+export const FETCH_POSTS_SUCCESS = 'FETCH_POSTS_SUCCESS'
+export const FETCH_POSTS_ERROR = 'FETCH_POSTS_ERROR'
+
 export const INSERT_POST = 'INSERT_POST'
-// export const SEND_POST = 'SEND_POST'
+
+export interface FetchPostsPending extends Action {
+  type: 'FETCH_POSTS_PENDING'
+}
+
+export const fetchPostsPending: ActionCreator<FetchPostsPending> = () => ({
+  type: FETCH_POSTS_PENDING
+})
+
+export interface FetchPostsSuccess extends Action {
+  type: 'FETCH_POSTS_SUCCESS'
+  payload: { posts: Post[] }
+}
+
+export const fetchPostsSuccess: ActionCreator<FetchPostsSuccess> = (posts: Post[]) => ({
+  type: FETCH_POSTS_SUCCESS,
+  payload: { posts }
+})
+
+export interface FetchPostsError extends Action {
+  type: 'FETCH_POSTS_ERROR'
+  payload: { error: any }
+}
+
+export const fetchPostsError: ActionCreator<FetchPostsError> = (error: any) => ({
+  type: FETCH_POSTS_ERROR,
+  payload: { error }
+})
 
 export interface FetchPosts extends Action {
   type: 'FETCH_POSTS'
   payload: { posts: Post[] }
 }
-
-export const setPosts: ActionCreator<FetchPosts> = (posts: Post[]) => ({
-  type: FETCH_POSTS,
-  payload: { posts }
-})
 
 export interface InsertPost extends Action {
   type: 'INSERT_POST'
@@ -27,24 +52,16 @@ export const insertPost: ActionCreator<InsertPost> = (post: Post) => ({
   payload: { post }
 })
 
-// export interface SendPost extends Action {
-//   type: 'SEND_POST'
-//   payload: { title: string; content: string }
-// }
-
-// export const setPost: ActionCreator<SendPost> = (title: string, content: string) => ({
-//   type: SEND_POST,
-//   payload: { title, content }
-// })
-
 /**
  * Returns posts
  */
 export const fetchPosts = (): ThunkResult<void> => async dispatch => {
   try {
+    dispatch(fetchPostsPending())
     const { data } = await apiClient.get(`/posts`)
-    dispatch(setPosts(data.data))
+    dispatch(fetchPostsSuccess(data.data))
   } catch (error) {
+    dispatch(fetchPostsError(error))
     throw error
   }
 }
@@ -67,4 +84,4 @@ export const sendPost = (title: string, content: string): ThunkResult<void> => a
   }
 }
 
-export type PostsActions = FetchPosts | InsertPost
+export type PostsActions = FetchPostsPending | FetchPostsSuccess | FetchPostsError | InsertPost

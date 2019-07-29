@@ -6,6 +6,8 @@ import { Spinner } from '../shared'
 
 interface IPostsProps {
   readonly posts: Post[]
+  readonly pending: boolean
+  readonly error: any
   readonly fetchPosts: () => void
   readonly loggedIn: boolean
 }
@@ -16,26 +18,28 @@ export default class Posts extends React.PureComponent<IPostsProps, {}> {
   }
 
   render() {
-    const posts = this.props.posts
+    const { posts, pending, error } = this.props
 
-    return (
-      <Wrapper role="feed" aria-busy="false">
-        {/* <InfiniteScroll
-          dataLength={this.props.posts.length}
-          next={this.props.fetchPosts}
-          hasMore={false}
-          scrollThreshold={'200px'}
-          loader={<div>Loading...</div>}
-        > */}
-        {posts.length > 0 ? (
-          posts.map(p => <PostComponent key={p._id} post={p} />)
-        ) : (
+    if (pending && !error) {
+      return (
+        <Wrapper role="feed" aria-busy="false">
           <LoaderWrapper>
             <Spinner />
           </LoaderWrapper>
-        )}
-        {/* </InfiniteScroll> */}
-      </Wrapper>
-    )
+        </Wrapper>
+      )
+    } else if (!pending && !error) {
+      return (
+        <Wrapper role="feed" aria-busy="false">
+          {posts.length > 0 && posts.map(p => <PostComponent key={p._id} post={p} />)}
+        </Wrapper>
+      )
+    } else if (error) {
+      return (
+        <Wrapper role="feed" aria-busy="false">
+          <div>{error}</div>
+        </Wrapper>
+      )
+    }
   }
 }

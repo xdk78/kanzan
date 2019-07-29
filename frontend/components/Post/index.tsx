@@ -1,9 +1,9 @@
 import * as React from 'react'
-import { TopWrapper, Wrapper, Body, Title } from './styles'
+import { TopWrapper, Wrapper, Body, Title, PostDropdownMenu } from './styles'
 import { Post as PostModel } from '../../models'
 import richMarkdown from '../../utils/markdown'
 import AuthorBar from '../AuthorBar'
-import { DropdownMenu, Dropdown, DropdownIconButton } from '../Dropdown'
+import { Dropdown, DropdownIconButton } from '../Dropdown'
 import { Spacer, IconButton, IconButtonWrapper, IconLinkButton } from '../shared'
 
 interface IPostProps {
@@ -53,12 +53,12 @@ export default class PostComponent extends React.PureComponent<IPostProps, {}> {
             <DropdownIconButton className="material-icons" onClick={this.handleOpenCloseDropdown}>
               more_vert
             </DropdownIconButton>
-            <DropdownMenu hidden={this.state.hidden}>
+            <PostDropdownMenu hidden={this.state.hidden}>
               <IconButtonWrapper color="#D50000">
                 <IconButton className="material-icons">delete</IconButton>
                 <IconLinkButton>Delete</IconLinkButton>
               </IconButtonWrapper>
-            </DropdownMenu>
+            </PostDropdownMenu>
           </Dropdown>
         </TopWrapper>
       </Wrapper>

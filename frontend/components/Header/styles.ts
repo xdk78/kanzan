@@ -59,11 +59,7 @@ const LinkButton = styled.a`
   }
 `
 
-const Username = styled(LinkButton)`
-  @media (max-width: 768px) {
-    display: none;
-  }
-`
+const Username = styled(LinkButton)``
 
 const DropdownButton = styled(SubLinkButton)`
   font-size: 18px;

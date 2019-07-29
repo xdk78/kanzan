@@ -5,7 +5,9 @@ import { fetchPosts } from '../actions/postsActions'
 
 const mapStateToProps = (state: RootState, props) => ({
   ...props,
-  posts: state.postsState.posts
+  posts: state.postsState.posts,
+  pending: state.postsState.pending,
+  error: state.postsState.error
 })
 
 const mapDispatchToProps = (dispatch: ThunkDispatch) => ({
