@@ -1,9 +1,11 @@
 import * as React from 'react'
 import { Wrapper, Actions, Input, Submit } from './styles'
-import { Divider } from '../shared'
+import { Divider, Spinner, LoaderWrapper } from '../shared'
 
 interface IReplyProps {
   readonly sendPost: (title: string, content: string) => void
+  readonly pending: boolean
+  readonly error: any
 }
 
 interface IReplyState {
@@ -34,6 +36,7 @@ export default class Reply extends React.PureComponent<IReplyProps, IReplyState>
   }
 
   render() {
+    const { pending, error } = this.props
     return (
       <Wrapper>
         {
@@ -58,6 +61,13 @@ export default class Reply extends React.PureComponent<IReplyProps, IReplyState>
         <Actions>
           <Submit onClick={this.onSubmit}>Send</Submit>
         </Actions>
+        {pending && !error ? (
+          <LoaderWrapper>
+            <Spinner />
+          </LoaderWrapper>
+        ) : (
+          <div>{error}</div>
+        )}
       </Wrapper>
     )
   }

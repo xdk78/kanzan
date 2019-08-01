@@ -7,7 +7,9 @@ export const FETCH_POSTS_PENDING = 'FETCH_POSTS_PENDING'
 export const FETCH_POSTS_SUCCESS = 'FETCH_POSTS_SUCCESS'
 export const FETCH_POSTS_ERROR = 'FETCH_POSTS_ERROR'
 
-export const INSERT_POST = 'INSERT_POST'
+export const INSERT_POST_PENDING = 'INSERT_POST_PENDING'
+export const INSERT_POST_SUCCESS = 'INSERT_POST_SUCCESS'
+export const INSERT_POST_ERROR = 'INSERT_POST_ERROR'
 
 export interface FetchPostsPending extends Action {
   type: 'FETCH_POSTS_PENDING'
@@ -29,12 +31,12 @@ export const fetchPostsSuccess: ActionCreator<FetchPostsSuccess> = (posts: Post[
 
 export interface FetchPostsError extends Action {
   type: 'FETCH_POSTS_ERROR'
-  payload: { error: any }
+  payload: { postsError: any }
 }
 
-export const fetchPostsError: ActionCreator<FetchPostsError> = (error: any) => ({
+export const fetchPostsError: ActionCreator<FetchPostsError> = (postsError: any) => ({
   type: FETCH_POSTS_ERROR,
-  payload: { error }
+  payload: { postsError }
 })
 
 export interface FetchPosts extends Action {
@@ -42,14 +44,32 @@ export interface FetchPosts extends Action {
   payload: { posts: Post[] }
 }
 
-export interface InsertPost extends Action {
-  type: 'INSERT_POST'
+export interface InsertPostPending extends Action {
+  type: 'INSERT_POST_PENDING'
+}
+
+export const insertPostPending: ActionCreator<InsertPostPending> = () => ({
+  type: INSERT_POST_PENDING
+})
+
+export interface InsertPostSuccess extends Action {
+  type: 'INSERT_POST_SUCCESS'
   payload: { post: Post }
 }
 
-export const insertPost: ActionCreator<InsertPost> = (post: Post) => ({
-  type: INSERT_POST,
+export const insertPostSuccess: ActionCreator<InsertPostSuccess> = (post: Post) => ({
+  type: INSERT_POST_SUCCESS,
   payload: { post }
+})
+
+export interface InsertPostError extends Action {
+  type: 'INSERT_POST_ERROR'
+  payload: { insertPostError: any }
+}
+
+export const insertPostError: ActionCreator<InsertPostError> = (insertPostError: any) => ({
+  type: INSERT_POST_ERROR,
+  payload: { insertPostError }
 })
 
 /**
@@ -61,7 +81,7 @@ export const fetchPosts = (): ThunkResult<void> => async dispatch => {
     const { data } = await apiClient.get(`/posts`)
     dispatch(fetchPostsSuccess(data.data))
   } catch (error) {
-    dispatch(fetchPostsError(error))
+    dispatch(fetchPostsError(error.toString()))
     throw error
   }
 }
@@ -71,6 +91,7 @@ export const fetchPosts = (): ThunkResult<void> => async dispatch => {
  */
 export const sendPost = (title: string, content: string): ThunkResult<void> => async (dispatch, getState) => {
   try {
+    dispatch(insertPostPending())
     const body = { title, content }
 
     const { data } = await apiClient.post('/posts', body, {
@@ -78,10 +99,17 @@ export const sendPost = (title: string, content: string): ThunkResult<void> => a
     })
     const post = data.data
 
-    dispatch(insertPost(post))
+    dispatch(insertPostSuccess(post))
   } catch (error) {
+    dispatch(insertPostError(error.toString()))
     throw error
   }
 }
 
-export type PostsActions = FetchPostsPending | FetchPostsSuccess | FetchPostsError | InsertPost
+export type PostsActions =
+  | FetchPostsPending
+  | FetchPostsSuccess
+  | FetchPostsError
+  | InsertPostPending
+  | InsertPostSuccess
+  | InsertPostError

@@ -1,0 +1,7 @@
+{
+  "name": "Kanzan",
+  "short_name": "Kanzan",
+  "theme_color": "#000000",
+  "scope": "/",
+  "start_url": "/"
+}

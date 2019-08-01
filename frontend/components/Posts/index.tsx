@@ -1,8 +1,8 @@
 import * as React from 'react'
-import { Wrapper, LoaderWrapper } from './styles'
+import { Wrapper } from './styles'
 import PostComponent from '../Post'
 import { Post } from '../../models'
-import { Spinner } from '../shared'
+import { Spinner, LoaderWrapper } from '../shared'
 
 interface IPostsProps {
   readonly posts: Post[]
@@ -20,26 +20,19 @@ export default class Posts extends React.PureComponent<IPostsProps, {}> {
   render() {
     const { posts, pending, error } = this.props
 
-    if (pending && !error) {
-      return (
-        <Wrapper role="feed" aria-busy="false">
+    // if (pending && !error) {
+    return (
+      <Wrapper role="feed" aria-busy="false">
+        {pending && !error ? (
           <LoaderWrapper>
             <Spinner />
           </LoaderWrapper>
-        </Wrapper>
-      )
-    } else if (!pending && !error) {
-      return (
-        <Wrapper role="feed" aria-busy="false">
-          {posts.length > 0 && posts.map(p => <PostComponent key={p._id} post={p} />)}
-        </Wrapper>
-      )
-    } else if (error) {
-      return (
-        <Wrapper role="feed" aria-busy="false">
+        ) : error ? (
           <div>{error}</div>
-        </Wrapper>
-      )
-    }
+        ) : (
+          posts.length > 0 && posts.map(p => <PostComponent key={p._id} post={p} />)
+        )}
+      </Wrapper>
+    )
   }
 }

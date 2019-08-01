@@ -1,6 +1,6 @@
 import Spacer from './Spacer'
 import Divider from './Divider'
-import Spinner from './Spinner'
+import Spinner, { LoaderWrapper } from './Spinner'
 import { IconButtonWrapper, IconButton, IconLinkButton } from './IconButton'
 
-export { Spacer, Divider, Spinner, IconButtonWrapper, IconButton, IconLinkButton }
+export { Spacer, Divider, Spinner, IconButtonWrapper, IconButton, IconLinkButton, LoaderWrapper }

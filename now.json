@@ -5,43 +5,43 @@
   "builds": [
     {
       "src": "backend/src/routes/v1/index.ts",
-      "use": "@now/node"
+      "use": "@now/node@0.11.1"
     },
     {
       "src": "backend/src/routes/v1/posts.ts",
-      "use": "@now/node"
+      "use": "@now/node@0.11.1"
     },
     {
       "src": "backend/src/routes/v1/post.ts",
-      "use": "@now/node"
+      "use": "@now/node@0.11.1"
     },
     {
       "src": "backend/src/routes/v1/createPost.ts",
-      "use": "@now/node"
+      "use": "@now/node@0.11.1"
     },
     {
       "src": "backend/src/routes/v1/deletePost.ts",
-      "use": "@now/node"
+      "use": "@now/node@0.11.1"
     },
     {
       "src": "backend/src/routes/v1/updatePost.ts",
-      "use": "@now/node"
+      "use": "@now/node@0.11.1"
     },
     {
       "src": "backend/src/routes/v1/user/username.ts",
-      "use": "@now/node"
+      "use": "@now/node@0.11.1"
     },
     {
       "src": "backend/src/routes/v1/auth/login.ts",
-      "use": "@now/node"
+      "use": "@now/node@0.11.1"
     },
     {
       "src": "backend/src/routes/v1/auth/register.ts",
-      "use": "@now/node"
+      "use": "@now/node@0.11.1"
     },
     {
       "src": "backend/src/routes/v1/auth/logout.ts",
-      "use": "@now/node"
+      "use": "@now/node@0.11.1"
     },
     {
       "src": "frontend/package.json",

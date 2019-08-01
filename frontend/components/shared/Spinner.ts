@@ -23,4 +23,13 @@ const Spinner = styled.div`
   border-radius: 50%;
 `
 
-export default Spinner
+export const LoaderWrapper = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  padding: 8px;
+  align-items: flex-start;
+  justify-content: center;
+`
+
+export default Spinner 

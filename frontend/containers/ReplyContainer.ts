@@ -4,7 +4,9 @@ import Reply from '../components/Reply'
 import { sendPost } from '../actions/postsActions'
 
 const mapStateToProps = (state: RootState, props) => ({
-  ...props
+  ...props,
+  pending: state.postsState.insertPendingPost,
+  error: state.postsState.insertPostError
 })
 
 const mapDispatchToProps = (dispatch: ThunkDispatch) => ({
