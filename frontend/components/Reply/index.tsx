@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Wrapper, Actions, Input, Submit } from './styles'
 import { Divider, Spinner, LoaderWrapper } from '../shared'
+import { sanitizeMarkdown } from '../../utils/markdown'
 
 interface IReplyProps {
   readonly sendPost: (title: string, content: string) => void
@@ -30,7 +31,8 @@ export default class Reply extends React.PureComponent<IReplyProps, IReplyState>
   onSubmit = (e: React.SyntheticEvent) => {
     const { title, content } = this.state
     if (title.trim() && content.trim()) {
-      this.props.sendPost(title, content)
+      const santizedContent = sanitizeMarkdown(content)
+      this.props.sendPost(title, santizedContent)
       this.setState({ title: '', content: '' })
     }
   }

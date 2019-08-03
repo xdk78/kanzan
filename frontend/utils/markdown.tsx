@@ -3,11 +3,14 @@ import marksy from 'marksy'
 import emoji from 'node-emoji'
 import { MarkedOptions } from 'marked'
 import { isURLSafe } from './'
+import DOMPurify from 'dompurify'
+
+export const sanitizeMarkdown = (html: string, dompurifyOptions?) => DOMPurify.sanitize(html, dompurifyOptions)
 
 export default (markdown: string): JSX.Element => {
   const replacer = (match: string) => emoji.emojify(match)
-  // tslint:disable-next-line:no-parameter-reassignment
-  markdown = markdown.replace(/(:.*:)/g, replacer)
+  const emojiWithMarkdown = markdown.replace(/(:.*:)/g, replacer)
+  const safeMarkdown = sanitizeMarkdown(emojiWithMarkdown)
 
   const compile = marksy({
     createElement: React.createElement,
@@ -71,8 +74,7 @@ export default (markdown: string): JSX.Element => {
     }
   })
 
-  const compiled = compile(markdown, {
-    sanitize: true,
+  const compiled = compile(safeMarkdown, {
     gfm: true,
     tables: false,
     breaks: true,

@@ -16,6 +16,7 @@
     "lint-fix": "prettier --write \"{pages,themes,components,containers,models,actions,reducers,store,utils,types}/**/*.ts*\" && tslint -p tsconfig.json --fix"
   },
   "devDependencies": {
+    "@types/dompurify": "0.0.33",
     "@types/jest": "^24.0.15",
     "@types/js-cookie": "^2.2.2",
     "@types/jwt-decode": "^2.2.1",
@@ -43,6 +44,7 @@
   "dependencies": {
     "axios": "^0.19.0",
     "dayjs": "^1.8.15",
+    "dompurify": "^1.0.11",
     "js-cookie": "^2.2.0",
     "jwt-decode": "^2.2.0",
     "marked": "^0.7.0",

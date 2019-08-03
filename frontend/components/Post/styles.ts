@@ -1,5 +1,5 @@
 import styled from '../../utils/styled-components'
-import {DropdownMenu} from '../Dropdown'
+import { DropdownMenu } from '../Dropdown'
 
 const Wrapper = styled.div`
   display: flex;
@@ -25,7 +25,7 @@ const Title = styled.div`
   font-family: 'Francois One', sans-serif;
   min-width: 0;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  white-space: pre-wrap;
   overflow: hidden;
 `
 
@@ -34,9 +34,9 @@ const Body = styled.div`
   font-size: 14px;
   display: flex;
   flex-direction: column;
+  text-overflow: ellipsis;
   word-break: break-all;
   overflow: hidden;
-  text-overflow: ellipsis;
 `
 
 const PostDropdownMenu = styled(DropdownMenu)`
