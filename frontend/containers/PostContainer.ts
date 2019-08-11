@@ -1,21 +1,21 @@
 import { connect } from 'react-redux'
 import { RootState, ThunkDispatch } from '../reducers'
-import Reply from '../components/Reply'
-import { sendPost } from '../actions/postsActions'
+import Post from '../components/Post'
+import { deletePost } from '../actions/postsActions'
 
 const mapStateToProps = (state: RootState, props) => ({
   ...props,
-  pending: state.postsState.insertPostPending,
-  error: state.postsState.insertPostError
+  pending: state.postsState.deletePostPending,
+  error: state.postsState.deletePostError
 })
 
 const mapDispatchToProps = (dispatch: ThunkDispatch) => ({
-  sendPost: (title: string, content: string) => {
-    dispatch(sendPost(title, content))
+  deletePost: (id: string) => {
+    dispatch(deletePost(id))
   }
 })
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Reply)
+)(Post)

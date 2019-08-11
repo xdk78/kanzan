@@ -13,10 +13,10 @@ async function main(ctx: KContext) {
     const postModel = new Post().getModelForClass(Post, { existingMongoose: existingConnection })
 
     const userModel = new User().getModelForClass(User, { existingMongoose: existingConnection })
-    const { _id } = ctx.query
+    const _id = ctx.query.id
 
     await userModel.findOneAndUpdate({ _id: ctx.state.user._id }, { $pull: { posts: _id } })
-    await postModel.findByIdAndDelete({ _id })
+    await postModel.findOneAndDelete({ _id })
     await existingConnection.disconnect()
 
     ctx.status = 200

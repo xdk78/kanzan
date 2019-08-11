@@ -14,6 +14,10 @@ export const INSERT_POST_PENDING = 'INSERT_POST_PENDING'
 export const INSERT_POST_SUCCESS = 'INSERT_POST_SUCCESS'
 export const INSERT_POST_ERROR = 'INSERT_POST_ERROR'
 
+export const DELETE_POST_PENDING = 'DELETE_POST_PENDING'
+export const DELETE_POST_SUCCESS = 'DELETE_POST_SUCCESS'
+export const DELETE_POST_ERROR = 'DELETE_POST_ERROR'
+
 export interface FetchPostsPending extends Action {
   type: 'FETCH_POSTS_PENDING'
 }
@@ -74,6 +78,35 @@ export const insertPostError: ActionCreator<InsertPostError> = (insertPostError:
   type: INSERT_POST_ERROR,
   payload: { insertPostError }
 })
+
+export interface DeletePostPending extends Action {
+  type: 'DELETE_POST_PENDING'
+}
+
+export const deletePostPending: ActionCreator<DeletePostPending> = () => ({
+  type: DELETE_POST_PENDING
+})
+
+export interface DeletePostSuccess extends Action {
+  type: 'DELETE_POST_SUCCESS'
+  payload: { id: string }
+}
+
+export const deletePostSuccess: ActionCreator<DeletePostSuccess> = (id: string) => ({
+  type: DELETE_POST_SUCCESS,
+  payload: { id }
+})
+
+export interface DeletePostError extends Action {
+  type: 'DELETE_POST_ERROR'
+  payload: { deletePostError: any }
+}
+
+export const deletePostError: ActionCreator<DeletePostError> = (deletePostError: any) => ({
+  type: DELETE_POST_ERROR,
+  payload: { deletePostError }
+})
+
 export interface SetPostsPage extends Action {
   type: 'SET_POSTS_PAGE'
   payload: { page: number }
@@ -141,6 +174,24 @@ export const sendPost = (title: string, content: string): ThunkResult<void> => a
   }
 }
 
+/**
+ * Deletes post for given `id`
+ */
+export const deletePost = (id: string): ThunkResult<void> => async (dispatch, getState) => {
+  try {
+    dispatch(deletePostPending())
+
+    await apiClient.delete(`/posts/${id}`, {
+      headers: { Authorization: `Bearer ${getState().authState.token}` }
+    })
+
+    dispatch(deletePostSuccess(id))
+  } catch (error) {
+    dispatch(deletePostError(error.toString()))
+    throw error
+  }
+}
+
 export type PostsActions =
   | FetchPostsPending
   | FetchPostsSuccess
@@ -148,5 +199,8 @@ export type PostsActions =
   | InsertPostPending
   | InsertPostSuccess
   | InsertPostError
+  | DeletePostPending
+  | DeletePostSuccess
+  | DeletePostError
   | SetPostsPage
   | SetPostsHasReachedEnd

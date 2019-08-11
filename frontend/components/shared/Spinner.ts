@@ -9,7 +9,7 @@ const rotate360 = keyframes`
   }
 `
 
-const Spinner = styled.div`
+const Spinner = styled.div<{ size: string }>`
   animation: ${rotate360} 1s linear infinite;
   transform: translateZ(0);
 
@@ -18,8 +18,8 @@ const Spinner = styled.div`
   border-bottom: 2px solid ${props => props.theme.accentColor};
   border-left: 2px solid ${props => props.theme.accentHoverColor};
   background: transparent;
-  width: 36px;
-  height: 36px;
+  width: ${({ size }) => size || '24px'};
+  height: ${({ size }) => size || '24px'};
   border-radius: 50%;
 `
 
@@ -32,4 +32,4 @@ export const LoaderWrapper = styled.div`
   justify-content: center;
 `
 
-export default Spinner 
+export default Spinner

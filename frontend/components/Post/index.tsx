@@ -4,15 +4,19 @@ import { Post as PostModel } from '../../models'
 import richMarkdown from '../../utils/markdown'
 import AuthorBar from '../AuthorBar'
 import { Dropdown, DropdownIconButton } from '../Dropdown'
-import { Spacer, IconButton, IconButtonWrapper, IconLinkButton } from '../shared'
+import { Spacer, IconButton, IconButtonWrapper, IconLinkButton, Spinner, LoaderWrapper } from '../shared'
 
 interface IPostProps {
   readonly post: PostModel
+  readonly pending: boolean
+  readonly error: any
+  readonly deletePost: (id: string) => void
 }
 
 export default class PostComponent extends React.PureComponent<IPostProps, {}> {
   state = {
-    hidden: true
+    hidden: true,
+    showPending: false
   }
 
   dropdownRef: React.RefObject<HTMLDivElement> = React.createRef()
@@ -28,18 +32,24 @@ export default class PostComponent extends React.PureComponent<IPostProps, {}> {
   handleOpenCloseDropdown = e => {
     if (this.dropdownRef.current && this.dropdownRef.current.contains(e.target)) {
       this.setState({
-        hidden: false
+        hidden: false,
+        showPending: true
       })
       return
     }
 
     this.setState({
-      hidden: true
+      hidden: true,
+      showPending: false
     })
   }
 
+  handleDeletePost = (id: string) => e => {
+    this.props.deletePost(id)
+  }
+
   render() {
-    const post = this.props.post
+    const { post, pending, error } = this.props
     return (
       <Wrapper>
         <Title>{post.title}</Title>
@@ -50,15 +60,23 @@ export default class PostComponent extends React.PureComponent<IPostProps, {}> {
           <AuthorBar createdAt={post.createdAt} author={post.author} />
           <Spacer />
           <Dropdown ref={this.dropdownRef}>
-            <DropdownIconButton className="material-icons" onClick={this.handleOpenCloseDropdown}>
-              more_vert
-            </DropdownIconButton>
-            <PostDropdownMenu hidden={this.state.hidden}>
-              <IconButtonWrapper color="#D50000">
-                <IconButton className="material-icons">delete</IconButton>
-                <IconLinkButton>Delete</IconLinkButton>
-              </IconButtonWrapper>
-            </PostDropdownMenu>
+            {pending && !error && this.state.showPending ? (
+              <LoaderWrapper>
+                <Spinner size="16px" />
+              </LoaderWrapper>
+            ) : (
+              <>
+                <DropdownIconButton className="material-icons" onClick={this.handleOpenCloseDropdown}>
+                  more_vert
+                </DropdownIconButton>
+                <PostDropdownMenu hidden={this.state.hidden}>
+                  <IconButtonWrapper color="#D50000" onClick={this.handleDeletePost(post._id)}>
+                    <IconButton className="material-icons">delete</IconButton>
+                    <IconLinkButton>Delete</IconLinkButton>
+                  </IconButtonWrapper>
+                </PostDropdownMenu>
+              </>
+            )}
           </Dropdown>
         </TopWrapper>
       </Wrapper>

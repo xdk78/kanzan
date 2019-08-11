@@ -8,7 +8,10 @@ import {
   INSERT_POST_PENDING,
   INSERT_POST_SUCCESS,
   INSERT_POST_ERROR,
-  SET_POSTS_HAS_REACHED_END
+  SET_POSTS_HAS_REACHED_END,
+  DELETE_POST_PENDING,
+  DELETE_POST_SUCCESS,
+  DELETE_POST_ERROR
 } from '../actions/postsActions'
 
 export interface PostsState {
@@ -17,9 +20,11 @@ export interface PostsState {
   readonly pages: number
   readonly hasReachedEnd: boolean
   readonly pendingPosts: boolean
-  readonly insertPendingPost: boolean
+  readonly insertPostPending: boolean
   readonly postsError: any
   readonly insertPostError: any
+  readonly deletePostError: any
+  readonly deletePostPending: boolean
 }
 
 const defaultState: PostsState = {
@@ -28,9 +33,11 @@ const defaultState: PostsState = {
   pages: 1,
   hasReachedEnd: false,
   pendingPosts: false,
-  insertPendingPost: false,
+  insertPostPending: false,
+  deletePostPending: false,
   postsError: null,
-  insertPostError: null
+  insertPostError: null,
+  deletePostError: null
 }
 
 export const postsReducer: Reducer<PostsState> = (state = defaultState, action: PostsActions) => {
@@ -64,21 +71,42 @@ export const postsReducer: Reducer<PostsState> = (state = defaultState, action: 
     case INSERT_POST_PENDING: {
       return {
         ...state,
-        insertPendingPost: true
+        insertPostPending: true
       }
     }
     case INSERT_POST_SUCCESS: {
       return {
         ...state,
         posts: [action.payload.post, ...state.posts],
-        insertPendingPost: false
+        insertPostPending: false
       }
     }
     case INSERT_POST_ERROR: {
       return {
         ...state,
         insertPostError: action.payload.insertPostError,
-        insertPendingPost: false
+        insertPostPending: false
+      }
+    }
+    case DELETE_POST_PENDING: {
+      return {
+        ...state,
+        deletePostPending: true
+      }
+    }
+    case DELETE_POST_SUCCESS: {
+      const filteredItems = state.posts.filter(post => post._id !== action.payload.id)
+      return {
+        ...state,
+        posts: filteredItems,
+        deletePostPending: false
+      }
+    }
+    case DELETE_POST_ERROR: {
+      return {
+        ...state,
+        deletePostError: action.payload.deletePostError,
+        deletePostPending: false
       }
     }
     default:

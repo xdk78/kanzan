@@ -73,8 +73,8 @@
       "methods": ["POST"]
     },
     {
-      "src": "/api/v1/posts/(?<_id>[^/]+)$",
-      "dest": "backend/src/routes/v1/deletePost.ts?_id=$_id",
+      "src": "/api/v1/posts/(?<id>[^/]+)$",
+      "dest": "backend/src/routes/v1/deletePost.ts?id=$id",
       "methods": ["DELETE"]
     },
     {

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Wrapper } from './styles'
-import PostComponent from '../Post'
+import PostComponent from '../../containers/PostContainer'
 import { Post } from '../../models'
 import { Spinner, LoaderWrapper } from '../shared'
 // import InfiniteScroll from 'react-infinite-scroll-component'
