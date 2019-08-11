@@ -7,6 +7,9 @@ export const FETCH_POSTS_PENDING = 'FETCH_POSTS_PENDING'
 export const FETCH_POSTS_SUCCESS = 'FETCH_POSTS_SUCCESS'
 export const FETCH_POSTS_ERROR = 'FETCH_POSTS_ERROR'
 
+export const SET_POSTS_PAGE = 'SET_POSTS_PAGE'
+export const SET_POSTS_HAS_REACHED_END = 'SET_POSTS_HAS_REACHED_END'
+
 export const INSERT_POST_PENDING = 'INSERT_POST_PENDING'
 export const INSERT_POST_SUCCESS = 'INSERT_POST_SUCCESS'
 export const INSERT_POST_ERROR = 'INSERT_POST_ERROR'
@@ -21,12 +24,12 @@ export const fetchPostsPending: ActionCreator<FetchPostsPending> = () => ({
 
 export interface FetchPostsSuccess extends Action {
   type: 'FETCH_POSTS_SUCCESS'
-  payload: { posts: Post[] }
+  payload: { posts: Post[]; pages: number }
 }
 
-export const fetchPostsSuccess: ActionCreator<FetchPostsSuccess> = (posts: Post[]) => ({
+export const fetchPostsSuccess: ActionCreator<FetchPostsSuccess> = (posts: Post[], pages: number) => ({
   type: FETCH_POSTS_SUCCESS,
-  payload: { posts }
+  payload: { posts, pages }
 })
 
 export interface FetchPostsError extends Action {
@@ -71,20 +74,52 @@ export const insertPostError: ActionCreator<InsertPostError> = (insertPostError:
   type: INSERT_POST_ERROR,
   payload: { insertPostError }
 })
+export interface SetPostsPage extends Action {
+  type: 'SET_POSTS_PAGE'
+  payload: { page: number }
+}
+
+export const setPostsPage: ActionCreator<SetPostsPage> = (page: number) => ({
+  type: SET_POSTS_PAGE,
+  payload: { page }
+})
+
+export interface SetPostsHasReachedEnd extends Action {
+  type: 'SET_POSTS_HAS_REACHED_END'
+  payload: { hasReachedEnd: boolean }
+}
+
+export const setPostsHasReachedEnd: ActionCreator<SetPostsHasReachedEnd> = (hasReachedEnd: boolean) => ({
+  type: SET_POSTS_HAS_REACHED_END,
+  payload: { hasReachedEnd }
+})
 
 /**
  * Returns posts
  */
-export const fetchPosts = (): ThunkResult<void> => async dispatch => {
+export const fetchPosts = (): ThunkResult<void> => async (dispatch, getState) => {
   try {
     dispatch(fetchPostsPending())
-    const { data } = await apiClient.get(`/posts`)
-    dispatch(fetchPostsSuccess(data.data))
+    const { data } = await apiClient.get(`/posts?page=${getState().postsState.page}`)
+    dispatch(fetchPostsSuccess(data.data, data.pages))
   } catch (error) {
     dispatch(fetchPostsError(error.toString()))
     throw error
   }
 }
+
+// export const fetchPosts = (): ThunkResult<void> => async (dispatch, getState) => {
+//   try {
+//     dispatch(fetchPostsPending())
+//     const { data } = await apiClient.get(`/posts?page=${getState().postsState.page}`)
+//     dispatch(fetchPostsSuccess(data.data))
+//     dispatch(setPostsPage(getState().postsState.page + 1))
+//     dispatch(setPostsHasReachedEnd(data.pages !== getState().postsState.page))
+//   } catch (error) {
+//     dispatch(fetchPostsError(error.toString()))
+//     throw error
+//   }
+// }
 
 /**
  * Sends post with `title` and `content` and returns created
@@ -113,3 +148,5 @@ export type PostsActions =
   | InsertPostPending
   | InsertPostSuccess
   | InsertPostError
+  | SetPostsPage
+  | SetPostsHasReachedEnd

@@ -23,7 +23,6 @@ const Title = styled.div`
   padding: 0px 8px 8px 8px;
   font-size: 24px;
   font-family: 'Francois One', sans-serif;
-  min-width: 0;
   text-overflow: ellipsis;
   white-space: pre-wrap;
   overflow: hidden;

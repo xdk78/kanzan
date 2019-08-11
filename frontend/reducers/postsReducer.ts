@@ -7,11 +7,15 @@ import {
   FETCH_POSTS_ERROR,
   INSERT_POST_PENDING,
   INSERT_POST_SUCCESS,
-  INSERT_POST_ERROR
+  INSERT_POST_ERROR,
+  SET_POSTS_HAS_REACHED_END
 } from '../actions/postsActions'
 
 export interface PostsState {
   readonly posts: Post[]
+  readonly page: number
+  readonly pages: number
+  readonly hasReachedEnd: boolean
   readonly pendingPosts: boolean
   readonly insertPendingPost: boolean
   readonly postsError: any
@@ -20,6 +24,9 @@ export interface PostsState {
 
 const defaultState: PostsState = {
   posts: [],
+  page: 1,
+  pages: 1,
+  hasReachedEnd: false,
   pendingPosts: false,
   insertPendingPost: false,
   postsError: null,
@@ -28,6 +35,11 @@ const defaultState: PostsState = {
 
 export const postsReducer: Reducer<PostsState> = (state = defaultState, action: PostsActions) => {
   switch (action.type) {
+    case SET_POSTS_HAS_REACHED_END:
+      return {
+        ...state,
+        hasReachedEnd: action.payload.hasReachedEnd
+      }
     case FETCH_POSTS_PENDING: {
       return {
         ...state,
@@ -38,6 +50,7 @@ export const postsReducer: Reducer<PostsState> = (state = defaultState, action: 
       return {
         ...state,
         posts: action.payload.posts,
+        pages: action.payload.pages,
         pendingPosts: false
       }
     }

@@ -13,17 +13,24 @@ async function main(ctx: KContext) {
     const userModel = new User().getModelForClass(User, { existingMongoose: existingConnection })
 
     const perPage = 9
-    const page = ctx.query.page || 1
+    const page = Number(ctx.query.page) || 1
 
     const posts = await postModel
       .find()
-      .skip((perPage * page) - perPage)
+      .skip(perPage * page - perPage)
       .limit(perPage)
       .sort({ createdAt: 'desc' })
       .populate([{ path: 'author', model: userModel, select: '_id username' }])
 
+    const count = await postModel.estimatedDocumentCount({})
+    const pages = Math.ceil(count / perPage)
+
     ctx.status = 200
-    ctx.body = { data: posts }
+    ctx.body = {
+      page,
+      pages,
+      data: posts
+    }
 
     await existingConnection.disconnect()
   } catch (error) {
