@@ -32,20 +32,23 @@ export default class PostComponent extends React.PureComponent<IPostProps, {}> {
   handleOpenCloseDropdown = e => {
     if (this.dropdownRef.current && this.dropdownRef.current.contains(e.target)) {
       this.setState({
-        hidden: false,
-        showPending: true
+        hidden: false
       })
       return
     }
 
     this.setState({
-      hidden: true,
-      showPending: false
+      hidden: true
     })
   }
 
   handleDeletePost = (id: string) => e => {
     this.props.deletePost(id)
+    if (this.dropdownRef.current) {
+      this.setState({
+        showPending: true
+      })
+    }
   }
 
   render() {

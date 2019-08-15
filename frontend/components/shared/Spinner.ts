@@ -9,7 +9,7 @@ const rotate360 = keyframes`
   }
 `
 
-const Spinner = styled.div<{ size: string }>`
+const Spinner = styled.div<{ size?: string }>`
   animation: ${rotate360} 1s linear infinite;
   transform: translateZ(0);
 
