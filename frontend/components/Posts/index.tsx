@@ -5,7 +5,7 @@ import { Post } from '../../models'
 import { Spinner, LoaderWrapper } from '../shared'
 // import InfiniteScroll from 'react-infinite-scroll-component'
 
-interface IPostsProps {
+interface PostsProps {
   readonly posts: Post[]
   readonly pending: boolean
   readonly hasMore: boolean
@@ -18,7 +18,7 @@ interface IPostsProps {
   readonly loggedIn: boolean
 }
 
-export default class Posts extends React.PureComponent<IPostsProps, {}> {
+export default class Posts extends React.PureComponent<PostsProps, {}> {
   componentDidMount() {
     this.props.fetchPosts()
   }
@@ -30,7 +30,7 @@ export default class Posts extends React.PureComponent<IPostsProps, {}> {
   // }
 
   render() {
-    const { posts, pending, error, hasMore } = this.props
+    const { posts, pending, error } = this.props
 
     return (
       <Wrapper role="feed" aria-busy="true">

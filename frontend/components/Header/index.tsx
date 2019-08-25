@@ -1,23 +1,23 @@
+import Link from 'next/link'
+import * as React from 'react'
 import { Wrapper, Username, Title, AvatarWrapper, LinkButton, DropdownButton, IconButton } from './styles'
 import Avatar from '../Avatar'
 import { Spacer } from '../shared'
-import Link from 'next/link'
-import * as React from 'react'
 import { User } from '../../models'
 import { DropdownMenu, Dropdown } from '../Dropdown'
 
-interface IHeaderProps {
+interface HeaderProps {
   readonly user: User
   readonly loggedIn: boolean
   readonly logout: () => void
   readonly fetchUser: (username: string) => void
 }
 
-interface IHeaderState {
+interface HeaderState {
   readonly hidden?: boolean
 }
 
-export default class Header extends React.PureComponent<IHeaderProps, IHeaderState> {
+export default class Header extends React.PureComponent<HeaderProps, HeaderState> {
   state = {
     hidden: true
   }
@@ -49,7 +49,7 @@ export default class Header extends React.PureComponent<IHeaderProps, IHeaderSta
     const { logout, user, loggedIn } = this.props
     return (
       <Wrapper role="navigation" aria-label="Main navigation">
-        <Link href="/" passHref={true}>
+        <Link href="/" passHref>
           <Title role="menuitem">KANZAN</Title>
         </Link>
         <Spacer />
@@ -73,10 +73,10 @@ export default class Header extends React.PureComponent<IHeaderProps, IHeaderSta
           </>
         ) : (
           <>
-            <Link href="/register" passHref={true}>
+            <Link href="/register" passHref>
               <LinkButton role="menuitem">Register</LinkButton>
             </Link>
-            <Link href="/login" passHref={true}>
+            <Link href="/login" passHref>
               <LinkButton role="menuitem">Log in</LinkButton>
             </Link>
           </>

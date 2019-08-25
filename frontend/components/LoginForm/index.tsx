@@ -1,18 +1,18 @@
 import * as React from 'react'
-import { Wrapper, FormCard, Input, FormButton } from '../Form'
 import Link from 'next/link'
+import { Wrapper, FormCard, Input, FormButton } from '../Form'
 
-interface ILoginFormState {
+interface LoginFormState {
   readonly email: string
   readonly password: string
 }
 
-interface ILoginFormProps {
+interface LoginFormProps {
   readonly loggedIn: boolean
   readonly loginUser: (email: string, password: string) => void
 }
 
-export default class LoginForm extends React.PureComponent<ILoginFormProps, ILoginFormState> {
+export default class LoginForm extends React.PureComponent<LoginFormProps, LoginFormState> {
   state = {
     email: '',
     password: ''
@@ -48,7 +48,7 @@ export default class LoginForm extends React.PureComponent<ILoginFormProps, ILog
               placeholder="email"
               type="email"
               onChange={this.handleChange}
-              required={true}
+              required
             />
             <Input
               name="password"
@@ -56,7 +56,7 @@ export default class LoginForm extends React.PureComponent<ILoginFormProps, ILog
               type="password"
               value={this.state.password}
               onChange={this.handleChange}
-              required={true}
+              required
             />
             <FormButton type="submit" value="Log in" onSubmit={this.handleSubmit} />
           </FormCard>

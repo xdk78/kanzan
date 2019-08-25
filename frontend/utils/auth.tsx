@@ -16,6 +16,32 @@ export const logout = () => {
   Router.push('/login')
 }
 
+export const auth = (ctx: { req?: NextReq; res?: NextResponse }) => {
+  const { token } = nextCookie(ctx)
+  let loggedIn = false
+  if (token) {
+    loggedIn = true
+  }
+
+  /*
+   * If `ctx.req` is available it means we are on the server.
+   * Additionally if there's no token it means the user is not logged in.
+   */
+  if (ctx.req && !token) {
+    loggedIn = false
+    ctx.res.writeHead(302, { Location: '/login' })
+    ctx.res.end()
+  }
+
+  // We already checked for server. This should only happen on client.
+  if (!token) {
+    loggedIn = false
+    Router.push('/login')
+  }
+
+  return { token, loggedIn }
+}
+
 // Gets the display name of a JSX component for dev tools
 const getDisplayName = Component => Component.displayName || Component.name || 'Component'
 
@@ -24,7 +50,6 @@ export const WithAuthSync = WrappedComponent => {
     static displayName = `withAuthSync(${getDisplayName(WrappedComponent)})`
 
     static async getInitialProps(ctx) {
-      // @ts-ignore
       const { token, loggedIn } = auth(ctx)
 
       const componentProps = WrappedComponent.getInitialProps && (await WrappedComponent.getInitialProps(ctx))
@@ -56,30 +81,4 @@ export const WithAuthSync = WrappedComponent => {
       return <WrappedComponent {...this.props} />
     }
   }
-}
-
-export const auth = (ctx: { req?: NextReq; res?: NextResponse }) => {
-  const { token } = nextCookie(ctx)
-  let loggedIn = false
-  if (token) {
-    loggedIn = true
-  }
-
-  /*
-   * If `ctx.req` is available it means we are on the server.
-   * Additionally if there's no token it means the user is not logged in.
-   */
-  if (ctx.req && !token) {
-    loggedIn = false
-    ctx.res.writeHead(302, { Location: '/login' })
-    ctx.res.end()
-  }
-
-  // We already checked for server. This should only happen on client.
-  if (!token) {
-    loggedIn = false
-    Router.push('/login')
-  }
-
-  return { token, loggedIn }
 }

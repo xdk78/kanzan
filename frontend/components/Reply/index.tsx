@@ -3,18 +3,18 @@ import { Wrapper, Actions, Input, Submit } from './styles'
 import { Divider, Spinner, LoaderWrapper } from '../shared'
 import { sanitizeMarkdown } from '../../utils/markdown'
 
-interface IReplyProps {
+interface ReplyProps {
   readonly sendPost: (title: string, content: string) => void
   readonly pending: boolean
   readonly error: any
 }
 
-interface IReplyState {
+interface ReplyState {
   readonly title: string
   readonly content: string
 }
 
-export default class Reply extends React.PureComponent<IReplyProps, IReplyState> {
+export default class Reply extends React.PureComponent<ReplyProps, ReplyState> {
   state = {
     title: '',
     content: ''
@@ -29,6 +29,7 @@ export default class Reply extends React.PureComponent<IReplyProps, IReplyState>
   }
 
   onSubmit = (e: React.SyntheticEvent) => {
+    e.preventDefault()
     const { title, content } = this.state
     if (title.trim() && content.trim()) {
       const santizedContent = sanitizeMarkdown(content)
@@ -42,20 +43,20 @@ export default class Reply extends React.PureComponent<IReplyProps, IReplyState>
     return (
       <Wrapper>
         {
-          // @ts-ignore
           <Input
             onChange={this.onTitleChange}
             html={this.state.title}
+            // @ts-ignore
             contentEditable="plaintext-only"
             placeholder="Title"
           />
         }
         <Divider />
         {
-          // @ts-ignore
           <Input
             onChange={this.onContentChange}
             html={this.state.content}
+            // @ts-ignore
             contentEditable="plaintext-only"
             placeholder="Your thoughts..."
           />

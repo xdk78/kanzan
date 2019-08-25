@@ -1,20 +1,19 @@
 import * as React from 'react'
-import Header from './../containers/HeaderContainer'
-import SubHeader from './../containers/SubHeaderContainer'
 import { connect } from 'react-redux'
+import Head from 'next/head'
+import Header from '../containers/HeaderContainer'
+import SubHeader from '../containers/SubHeaderContainer'
 import { FeedWrapper, PostsWrapper, AppWrapper } from '../themes/styles'
 import { RootState } from '../reducers'
 import PostList from '../containers/PostsContainer'
 import { WithAuthSync } from '../utils/auth'
-import Head from 'next/head'
 import Reply from '../containers/ReplyContainer'
 
-interface IIndexProps {
+interface IndexProps {
   readonly loggedIn: boolean
-  readonly token: string
 }
 
-const Index: React.FunctionComponent<IIndexProps> = ({ loggedIn, token }) => (
+const Index: React.FunctionComponent<IndexProps> = ({ loggedIn }) => (
   <>
     <Head>
       <title>Feed - Kanzan</title>

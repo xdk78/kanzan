@@ -1,4 +1,4 @@
-import styled, { css } from '../../utils/styled-components'
+import styled from '../../utils/styled-components'
 
 const Wrapper = styled.div`
   display: flex;
@@ -10,7 +10,7 @@ const Wrapper = styled.div`
   border-bottom: 1px solid
     ${(
       props // tslint:disable-next-line:prefer-template
-    ) => props.theme.borderColor + '3d'};
+    ) => `${props.theme.borderColor}3d`};
 `
 
 const LinkButton = styled.a`

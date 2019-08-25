@@ -1,5 +1,19 @@
 import cookie from 'js-cookie'
 import { isBrowser } from '.'
+const getCookieFromServer = (key: string, req): string => {
+  if (!req.headers.cookie) {
+    return undefined
+  }
+  const rawCookie = req.headers.cookie.split(';').find(c => c.trim().startsWith(`${key}=`))
+  if (!rawCookie) {
+    return undefined
+  }
+  return rawCookie.split('=')[1]
+}
+
+const getCookieFromBrowser = key => {
+  return cookie.get(key)
+}
 
 const setCookie = (key: string, value: string | object, options?: cookie.CookieAttributes) => {
   if (isBrowser) {
@@ -15,21 +29,6 @@ const destroyCookie = (key: string, options?: cookie.CookieAttributes) => {
   if (isBrowser) {
     cookie.remove(key, options)
   }
-}
-
-const getCookieFromServer = (key: string, req): string => {
-  if (!req.headers.cookie) {
-    return undefined
-  }
-  const rawCookie = req.headers.cookie.split(';').find(c => c.trim().startsWith(`${key}=`))
-  if (!rawCookie) {
-    return undefined
-  }
-  return rawCookie.split('=')[1]
-}
-
-const getCookieFromBrowser = key => {
-  return cookie.get(key)
 }
 
 export default {

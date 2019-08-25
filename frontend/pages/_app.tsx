@@ -1,18 +1,18 @@
 import App, { Container, DefaultAppIProps, NextAppContext } from 'next/app'
 import * as React from 'react'
 import Head from 'next/head'
-import { createGlobalStyle, ThemeProvider } from '../utils/styled-components'
-import makeStore from '../store'
 import { Provider } from 'react-redux'
-import { style } from '../themes/styles'
-import darkTheme from '../themes/dark'
 import withReduxStore from 'next-redux-wrapper'
 import { Store } from 'redux'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
-import { setToken } from '../actions/authActions'
 import nookies from 'nookies'
 import { NextContext } from 'next'
+import { setToken } from '../actions/authActions'
+import darkTheme from '../themes/dark'
+import { style } from '../themes/styles'
+import makeStore from '../store'
+import { createGlobalStyle, ThemeProvider } from '../utils/styled-components'
 
 dayjs.extend(relativeTime)
 
@@ -53,7 +53,7 @@ class MyApp extends App<KanzanAppProps> {
   }
 
   componentDidMount() {
-    const { token, store, router } = this.props
+    const { token, store } = this.props
     if (token) {
       // Set token on the client side too
       store.dispatch(setToken(token) as any)

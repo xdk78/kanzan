@@ -1,11 +1,11 @@
 import { Action, ActionCreator } from 'redux'
+import decode from 'jwt-decode'
+import Router from 'next/router'
 import { ThunkResult } from '../reducers'
 import apiClient from '../services/api'
 import cookies from '../utils/cookies'
 import { isTokenExpired } from '../utils'
 import { User } from '../models'
-import decode from 'jwt-decode'
-import Router from 'next/router'
 
 export const SET_REGISTERED = 'SET_REGISTERED'
 export const SET_LOGGED_IN = 'SET_LOGGED_IN'

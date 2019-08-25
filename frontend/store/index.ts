@@ -12,7 +12,7 @@ import { rootReducer, RootState } from '../reducers'
  * @param {boolean} options.debug User-defined debug mode param
  * @param {string} options.storeKey This key will be used to preserve store in global namespace for safe HMR
  */
-export default function(initialState: RootState, options): Store<RootState | undefined> {
+export default function(initialState: RootState): Store<RootState | undefined> {
   const middlewares: Middleware[] = [thunkMiddleware]
   const enhancer = composeWithDevTools(applyMiddleware(...middlewares))
   return createStore<RootState | undefined, Action<any>, {}, {}>(rootReducer, initialState, enhancer)

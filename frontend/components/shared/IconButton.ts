@@ -32,7 +32,7 @@ const IconButtonWrapper = styled.a<{ color?: string }>`
     color: ${props => props.color || props.theme.accentColor};
     background: ${props =>
       // tslint:disable-next-line:prefer-template
-      props.color + '3d' || props.theme.accentHoverColor};
+      `${props.color}3d` || props.theme.accentHoverColor};
     transition: all 0.25s ease-in-out;
     text-decoration: none;
   }

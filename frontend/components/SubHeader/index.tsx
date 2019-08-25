@@ -1,13 +1,13 @@
-import { Wrapper } from './styles'
 import * as React from 'react'
-import Searchbox from './../Searchbox'
+import { Wrapper } from './styles'
+import Searchbox from '../Searchbox'
 import { Spacer, IconButtonWrapper, IconButton, IconLinkButton } from '../shared'
 
-interface ISubHeaderProps {
+interface SubHeaderProps {
   readonly loggedIn: boolean
 }
 
-export default class SubHeader extends React.PureComponent<ISubHeaderProps, {}> {
+export default class SubHeader extends React.PureComponent<SubHeaderProps, {}> {
   render() {
     return (
       <Wrapper role="navigation" aria-label="Sub navigation">

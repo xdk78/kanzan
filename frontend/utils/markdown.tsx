@@ -2,8 +2,8 @@ import * as React from 'react'
 import marksy from 'marksy'
 import emoji from 'node-emoji'
 import { MarkedOptions } from 'marked'
-import { isURLSafe } from './'
 import DOMPurify from 'dompurify'
+import { isURLSafe } from '.'
 
 export const sanitizeMarkdown = (html: string, dompurifyOptions?) => DOMPurify.sanitize(html, dompurifyOptions)
 

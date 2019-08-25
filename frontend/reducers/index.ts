@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux'
+import { ThunkAction, ThunkDispatch } from 'redux-thunk'
 import { RootActions } from '../actions'
 import { authReducer, AuthState } from './authReducer'
 
 import { RootState } from './index'
-import { ThunkAction, ThunkDispatch } from 'redux-thunk'
 import { postsReducer, PostsState } from './postsReducer'
 import { userReducer, UserState } from './userReducer'
 

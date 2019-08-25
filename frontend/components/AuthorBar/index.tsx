@@ -1,18 +1,17 @@
 import * as React from 'react'
+import dayjs from 'dayjs'
 import { DateWrapper, NicknameWrapper, NicknameDateWrapper, AuthorBarWrapper } from './styles'
 import Avatar from '../Avatar'
 import { User } from '../../models'
-import dayjs from 'dayjs'
-import { Spacer } from '../shared'
 
-interface IAuthorBarProps {
+interface AuthorBarProps {
   readonly author: User
   readonly createdAt: string
 }
 
-export default class AuthorBar extends React.PureComponent<IAuthorBarProps> {
+export default class AuthorBar extends React.PureComponent<AuthorBarProps> {
   render() {
-    const author = this.props.author
+    const { author } = this.props
     // tslint:disable-next-line: max-line-length
     const avatarUrl = `https://ui-avatars.com/api/?background=0095ff&color=fff&rounded=true&size=36&name=${author.username}`
     return (

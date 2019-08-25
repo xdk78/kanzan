@@ -1,19 +1,19 @@
 import * as React from 'react'
-import { Wrapper, FormCard, Input, FormButton } from '../Form'
 import Link from 'next/link'
+import { Wrapper, FormCard, Input, FormButton } from '../Form'
 
-interface IRegisterFormState {
+interface RegisterFormState {
   readonly username: string
   readonly email: string
   readonly password: string
 }
 
-interface IRegisterFormProps {
+interface RegisterFormProps {
   readonly token: string
   readonly registerUser: (username: string, email: string, password: string) => void
 }
 
-export default class RegisterForm extends React.PureComponent<IRegisterFormProps, IRegisterFormState> {
+export default class RegisterForm extends React.PureComponent<RegisterFormProps, RegisterFormState> {
   state = {
     username: '',
     email: '',
@@ -53,7 +53,7 @@ export default class RegisterForm extends React.PureComponent<IRegisterFormProps
               placeholder="email"
               type="email"
               onChange={this.handleChange}
-              required={true}
+              required
             />
             <Input
               name="username"
@@ -61,7 +61,7 @@ export default class RegisterForm extends React.PureComponent<IRegisterFormProps
               type="text"
               value={this.state.username}
               onChange={this.handleChange}
-              required={true}
+              required
             />
             <Input
               name="password"
@@ -69,7 +69,7 @@ export default class RegisterForm extends React.PureComponent<IRegisterFormProps
               type="password"
               value={this.state.password}
               onChange={this.handleChange}
-              required={true}
+              required
             />
             <FormButton type="submit" value="Register" onSubmit={this.handleSubmit} />
           </FormCard>

@@ -1,10 +1,10 @@
 import styled from '../../utils/styled-components'
 
-interface IAvatar {
+interface AvatarProps {
   readonly url?: string
 }
 
-export default styled.div<IAvatar>`
+export default styled.div<AvatarProps>`
   padding: 0px;
   cursor: pointer;
   background-image: url(${props => props.url});

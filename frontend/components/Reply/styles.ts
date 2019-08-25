@@ -1,5 +1,5 @@
-import styled from '../../utils/styled-components'
 import ContentEditable from 'react-contenteditable'
+import styled from '../../utils/styled-components'
 
 const Wrapper = styled.div`
   display: flex;

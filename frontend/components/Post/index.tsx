@@ -6,14 +6,14 @@ import AuthorBar from '../AuthorBar'
 import { Dropdown, DropdownIconButton } from '../Dropdown'
 import { Spacer, IconButton, IconButtonWrapper, IconLinkButton, Spinner, LoaderWrapper } from '../shared'
 
-interface IPostProps {
+interface PostProps {
   readonly post: PostModel
   readonly pending: boolean
   readonly error: any
   readonly deletePost: (id: string) => void
 }
 
-export default class PostComponent extends React.PureComponent<IPostProps, {}> {
+export default class PostComponent extends React.PureComponent<PostProps, {}> {
   state = {
     hidden: true,
     showPending: false
@@ -42,7 +42,7 @@ export default class PostComponent extends React.PureComponent<IPostProps, {}> {
     })
   }
 
-  handleDeletePost = (id: string) => e => {
+  handleDeletePost = (id: string) => () => {
     this.props.deletePost(id)
     if (this.dropdownRef.current) {
       this.setState({

@@ -1,6 +1,6 @@
 import styled, { css } from '../../utils/styled-components'
 
-interface IDropdownMenu {
+interface DropdownMenuProps {
   readonly hidden?: boolean
 }
 
@@ -11,7 +11,7 @@ const Dropdown = styled.div`
   z-index: 9999;
 `
 
-const DropdownMenu = styled.div<IDropdownMenu>`
+const DropdownMenu = styled.div<DropdownMenuProps>`
   position: absolute;
   left: -75%;
   padding: 0 0;
