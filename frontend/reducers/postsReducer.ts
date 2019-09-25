@@ -1,5 +1,5 @@
 import { Reducer } from 'redux'
-import { Post } from '../models'
+import Post from '../models/Post'
 import {
   PostsActions,
   FETCH_POSTS_SUCCESS,

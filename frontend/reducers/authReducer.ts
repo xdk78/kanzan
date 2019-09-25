@@ -1,6 +1,6 @@
 import { Reducer } from 'redux'
 import { SET_REGISTERED, SET_LOGGED_IN, AuthActions } from '../actions/authActions'
-import { User } from '../models'
+import User from '../models/User'
 
 export interface AuthState {
   readonly token: string

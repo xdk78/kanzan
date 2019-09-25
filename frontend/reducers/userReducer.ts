@@ -1,5 +1,5 @@
 import { Reducer } from 'redux'
-import { User } from '../models'
+import User from '../models/User'
 import { FETCH_USER, UserActions } from '../actions/userActions'
 
 export interface UserState {

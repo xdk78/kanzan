@@ -1,5 +1,5 @@
 import { Action, ActionCreator } from 'redux'
-import { User } from '../models'
+import User from '../models/User'
 import { ThunkResult } from '../reducers'
 import apiClient from '../services/api'
 

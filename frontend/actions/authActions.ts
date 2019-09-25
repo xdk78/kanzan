@@ -5,7 +5,7 @@ import { ThunkResult } from '../reducers'
 import apiClient from '../services/api'
 import cookies from '../utils/cookies'
 import { isTokenExpired } from '../utils'
-import { User } from '../models'
+import User from '../models/User'
 
 export const SET_REGISTERED = 'SET_REGISTERED'
 export const SET_LOGGED_IN = 'SET_LOGGED_IN'
