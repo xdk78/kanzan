@@ -1,12 +1,14 @@
-import * as React from 'react'
+import React from 'react'
 import Document, { Head, Main, NextScript, NextDocumentContext } from 'next/document'
 import { ServerStyleSheet } from 'styled-components'
 
-interface Props {
-  readonly styleTags: React.ReactElement<{}>[]
+type Props = {
+  styleTags: React.ReactElement<{}>[]
 }
 
 export default class MyDocument extends Document<Props> {
+  props: Props
+  
   static async getInitialProps(ctx: NextDocumentContext) {
     const sheet = new ServerStyleSheet()
     const originalRenderPage = ctx.renderPage

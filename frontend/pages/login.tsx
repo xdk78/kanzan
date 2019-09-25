@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import Head from 'next/head'
 import LoginFormContainer from '../containers/LoginFormContainer'
 import Header from '../containers/HeaderContainer'

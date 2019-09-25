@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import marksy from 'marksy'
 import emoji from 'node-emoji'
 import { MarkedOptions } from 'marked'

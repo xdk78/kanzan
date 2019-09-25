@@ -1,8 +1,8 @@
-import * as React from 'react'
+import React from 'react'
 import Router from 'next/router'
 import nextCookie from 'next-cookies'
 import cookie from 'js-cookie'
-import { NextReq, NextResponse } from 'next'
+import { NextApiRequest, NextApiResponse } from 'next'
 
 export const login = async ({ token }) => {
   cookie.set('token', token, { expires: 30 })
@@ -16,7 +16,7 @@ export const logout = () => {
   Router.push('/login')
 }
 
-export const auth = (ctx: { req?: NextReq; res?: NextResponse }) => {
+export const auth = (ctx: { req?: NextApiRequest; res?: NextApiResponse }) => {
   const { token } = nextCookie(ctx)
   let loggedIn = false
   if (token) {

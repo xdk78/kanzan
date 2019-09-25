@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { Wrapper } from './styles'
 import Searchbox from '../Searchbox'
 import { Spacer, IconButtonWrapper, IconButton, IconLinkButton } from '../shared'

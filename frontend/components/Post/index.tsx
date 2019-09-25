@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { TopWrapper, Wrapper, Body, Title, PostDropdownMenu } from './styles'
 import { Post as PostModel } from '../../models'
 import richMarkdown from '../../utils/markdown'

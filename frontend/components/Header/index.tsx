@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import * as React from 'react'
+import React from 'react'
 import { Wrapper, Username, Title, AvatarWrapper, LinkButton, DropdownButton, IconButton } from './styles'
 import Avatar from '../Avatar'
 import { Spacer } from '../shared'

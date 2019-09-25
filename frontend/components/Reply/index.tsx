@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { Wrapper, Actions, Input, Submit } from './styles'
 import { Divider, Spinner, LoaderWrapper } from '../shared'
 import { sanitizeMarkdown } from '../../utils/markdown'

@@ -1,5 +1,5 @@
-import App, { Container, DefaultAppIProps, NextAppContext } from 'next/app'
-import * as React from 'react'
+import App, { Container } from 'next/app'
+import React from 'react'
 import Head from 'next/head'
 import { Provider } from 'react-redux'
 import withReduxStore from 'next-redux-wrapper'
@@ -7,7 +7,6 @@ import { Store } from 'redux'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import nookies from 'nookies'
-import { NextContext } from 'next'
 import { setToken } from '../actions/authActions'
 import darkTheme from '../themes/dark'
 import { style } from '../themes/styles'
@@ -18,21 +17,18 @@ dayjs.extend(relativeTime)
 
 const GlobalStyle = createGlobalStyle`${style}`
 
-interface KanzanAppProps extends DefaultAppIProps {
+interface KanzanAppProps {
   store: Store
   token: string
-}
-
-interface Context extends NextContext {
-  store: Store
-}
-
-export interface AppContext extends NextAppContext {
-  ctx: Context
+  Component: any
+  pageProps: any
+  router: any
 }
 
 class MyApp extends App<KanzanAppProps> {
-  static async getInitialProps({ Component, ctx }: AppContext) {
+  props: KanzanAppProps
+
+  static async getInitialProps({ Component, ctx }) {
     const { token } = nookies.get(ctx)
 
     let loggedIn = false

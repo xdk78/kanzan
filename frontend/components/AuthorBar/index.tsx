@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import dayjs from 'dayjs'
 import { DateWrapper, NicknameWrapper, NicknameDateWrapper, AuthorBarWrapper } from './styles'
 import Avatar from '../Avatar'

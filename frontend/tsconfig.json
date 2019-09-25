@@ -9,10 +9,19 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "preserveConstEnums": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
     "sourceMap": true,
     "skipLibCheck": true,
     "baseUrl": ".",
-    "lib": ["dom", "esnext"]
+    "lib": [
+      "dom",
+      "esnext"
+    ],
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "resolveJsonModule": true
   },
   "exclude": [
     "node_modules",
@@ -25,5 +34,10 @@
     "**/*.test.tsx",
     "out",
     ".next"
+  ],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
   ]
 }
