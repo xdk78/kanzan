@@ -1,6 +1,6 @@
 import React from 'react'
 import { TopWrapper, Wrapper, Body, Title, PostDropdownMenu } from './styles'
-import { Post as PostModel } from '../../models'
+import PostModel from '../../models/Post'
 import richMarkdown from '../../utils/markdown'
 import AuthorBar from '../AuthorBar'
 import { Dropdown, DropdownIconButton } from '../Dropdown'

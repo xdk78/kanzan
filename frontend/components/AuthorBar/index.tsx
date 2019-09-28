@@ -2,7 +2,7 @@ import React from 'react'
 import dayjs from 'dayjs'
 import { DateWrapper, NicknameWrapper, NicknameDateWrapper, AuthorBarWrapper } from './styles'
 import Avatar from '../Avatar'
-import { User } from '../../models'
+import User from '../../models/User'
 
 interface AuthorBarProps {
   readonly author: User
@@ -12,7 +12,7 @@ interface AuthorBarProps {
 export default class AuthorBar extends React.PureComponent<AuthorBarProps> {
   render() {
     const { author } = this.props
-    // tslint:disable-next-line: max-line-length
+    // eslint-disable-next-line max-len
     const avatarUrl = `https://ui-avatars.com/api/?background=0095ff&color=fff&rounded=true&size=36&name=${author.username}`
     return (
       <AuthorBarWrapper>

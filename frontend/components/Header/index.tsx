@@ -3,7 +3,7 @@ import React from 'react'
 import { Wrapper, Username, Title, AvatarWrapper, LinkButton, DropdownButton, IconButton } from './styles'
 import Avatar from '../Avatar'
 import { Spacer } from '../shared'
-import { User } from '../../models'
+import User from '../../models/User'
 import { DropdownMenu, Dropdown } from '../Dropdown'
 
 interface HeaderProps {
