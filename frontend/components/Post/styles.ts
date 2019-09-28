@@ -1,7 +1,7 @@
 import styled from '../../utils/styled-components'
 import { DropdownMenu } from '../Dropdown'
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding: 4px;
@@ -14,12 +14,12 @@ const Wrapper = styled.div`
   }
 `
 
-const TopWrapper = styled.div`
+export const TopWrapper = styled.div`
   display: flex;
   flex-direction: row;
 `
 
-const Title = styled.div`
+export const Title = styled.div`
   padding: 0px 8px 8px 8px;
   font-size: 24px;
   font-family: 'Francois One', sans-serif;
@@ -28,7 +28,7 @@ const Title = styled.div`
   overflow: hidden;
 `
 
-const Body = styled.div`
+export const Body = styled.div`
   padding: 0px 8px 8px 8px;
   font-size: 14px;
   display: flex;
@@ -38,8 +38,6 @@ const Body = styled.div`
   overflow: hidden;
 `
 
-const PostDropdownMenu = styled(DropdownMenu)`
+export const PostDropdownMenu = styled(DropdownMenu)`
   left: -185%;
 `
-
-export { TopWrapper, Wrapper, Body, Title, PostDropdownMenu }

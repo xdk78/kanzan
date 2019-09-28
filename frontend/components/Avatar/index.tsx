@@ -1,7 +1,7 @@
 import styled from '../../utils/styled-components'
 
-interface AvatarProps {
-  readonly url?: string
+type AvatarProps = {
+  url?: string
 }
 
 export default styled.div<AvatarProps>`

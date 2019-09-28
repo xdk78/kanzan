@@ -1,7 +1,7 @@
 import styled from '../../utils/styled-components'
 import { LinkButton as SubLinkButton } from '../SubHeader/styles'
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   height: 52px;
@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   padding: 0px 8px 0px 8px;
 `
 
-const AvatarWrapper = styled.div`
+export const AvatarWrapper = styled.div`
   display: flex;
   flex-direction: row;
   background: ${props => props.theme.backgroundColor};
@@ -19,7 +19,7 @@ const AvatarWrapper = styled.div`
   justify-content: center;
 `
 
-const Title = styled.div`
+export const Title = styled.div`
   font-size: 24px;
   padding: 4px;
   font-weight: 900;
@@ -38,7 +38,7 @@ const Title = styled.div`
   }
 `
 
-const LinkButton = styled.a`
+export const LinkButton = styled.a`
   display: flex;
   border: none;
   font-size: 18px;
@@ -59,14 +59,12 @@ const LinkButton = styled.a`
   }
 `
 
-const Username = styled(LinkButton)``
+export const Username = styled(LinkButton)``
 
-const DropdownButton = styled(SubLinkButton)`
+export const DropdownButton = styled(SubLinkButton)`
   font-size: 18px;
 `
 
-const IconButton = styled(LinkButton)`
+export const IconButton = styled(LinkButton)`
   font-size: 24px;
 `
-
-export { Wrapper, AvatarWrapper, Username, Title, LinkButton, DropdownButton, IconButton }

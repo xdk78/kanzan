@@ -1,9 +1,9 @@
 import styled, { css } from '../../utils/styled-components'
 
-interface ButtonProps {
-  readonly primary?: boolean
-  readonly color?: string
-  readonly background?: string
+type ButtonProps = {
+  primary?: boolean
+  color?: string
+  background?: string
 }
 
 export default styled.button<ButtonProps>`

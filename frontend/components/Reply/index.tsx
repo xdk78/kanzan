@@ -3,15 +3,15 @@ import { Wrapper, Actions, Input, Submit } from './styles'
 import { Divider, Spinner, LoaderWrapper } from '../shared'
 import { sanitizeMarkdown } from '../../utils/markdown'
 
-interface ReplyProps {
-  readonly sendPost: (title: string, content: string) => void
-  readonly pending: boolean
-  readonly error: any
+type ReplyProps = {
+  sendPost: (title: string, content: string) => void
+  pending: boolean
+  error: any
 }
 
-interface ReplyState {
-  readonly title: string
-  readonly content: string
+type ReplyState = {
+  title: string
+  content: string
 }
 
 export default class Reply extends React.PureComponent<ReplyProps, ReplyState> {

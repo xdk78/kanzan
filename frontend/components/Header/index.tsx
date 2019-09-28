@@ -6,15 +6,15 @@ import { Spacer } from '../shared'
 import User from '../../models/User'
 import { DropdownMenu, Dropdown } from '../Dropdown'
 
-interface HeaderProps {
-  readonly user: User
-  readonly loggedIn: boolean
-  readonly logout: () => void
-  readonly fetchUser: (username: string) => void
+type HeaderProps = {
+  user: User
+  loggedIn: boolean
+  logout: () => void
+  fetchUser: (username: string) => void
 }
 
-interface HeaderState {
-  readonly hidden?: boolean
+type HeaderState = {
+  hidden?: boolean
 }
 
 export default class Header extends React.PureComponent<HeaderProps, HeaderState> {

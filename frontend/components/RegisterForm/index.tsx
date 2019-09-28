@@ -2,15 +2,15 @@ import React from 'react'
 import Link from 'next/link'
 import { Wrapper, FormCard, Input, FormButton } from '../Form'
 
-interface RegisterFormState {
-  readonly username: string
-  readonly email: string
-  readonly password: string
+type RegisterFormState = {
+  username: string
+  email: string
+  password: string
 }
 
-interface RegisterFormProps {
-  readonly token: string
-  readonly registerUser: (username: string, email: string, password: string) => void
+type RegisterFormProps = {
+  token: string
+  registerUser: (username: string, email: string, password: string) => void
 }
 
 export default class RegisterForm extends React.PureComponent<RegisterFormProps, RegisterFormState> {

@@ -5,7 +5,7 @@ import Header from '../containers/HeaderContainer'
 import SubHeader from '../containers/SubHeaderContainer'
 import { AppWrapper } from '../themes/styles'
 
-const Login = ({}) => (
+const Login = () => (
   <>
     <Head>
       <title>Log in - Kanzan</title>

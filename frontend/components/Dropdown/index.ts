@@ -1,17 +1,17 @@
 import styled, { css } from '../../utils/styled-components'
 
-interface DropdownMenuProps {
-  readonly hidden?: boolean
+type DropdownMenuProps = {
+  hidden?: boolean
 }
 
-const Dropdown = styled.div`
+export const Dropdown = styled.div`
   position: relative;
   color: ${({ theme }) => theme.textColor};
   user-select: none;
   z-index: 9999;
 `
 
-const DropdownMenu = styled.div<DropdownMenuProps>`
+export const DropdownMenu = styled.div<DropdownMenuProps>`
   position: absolute;
   left: -75%;
   padding: 0 0;
@@ -28,7 +28,7 @@ const DropdownMenu = styled.div<DropdownMenuProps>`
           flex-direction: column;
         `};
 `
-const DropdownIconButton = styled.div`
+export const DropdownIconButton = styled.div`
   font-size: 24px;
   cursor: pointer;
   user-select: none;
@@ -37,5 +37,3 @@ const DropdownIconButton = styled.div`
     color: ${({ theme }) => theme.primaryColor};
   }
 `
-
-export { Dropdown, DropdownMenu, DropdownIconButton }

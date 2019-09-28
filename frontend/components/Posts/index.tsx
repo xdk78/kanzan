@@ -1,50 +1,47 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Wrapper } from './styles'
 import PostComponent from '../../containers/PostContainer'
 import Post from '../../models/Post'
 import { Spinner, LoaderWrapper } from '../shared'
 // import InfiniteScroll from 'react-infinite-scroll-component'
 
-interface PostsProps {
-  readonly posts: Post[]
-  readonly pending: boolean
-  readonly hasMore: boolean
-  readonly page: number
-  readonly pages: number
-  readonly error: any
-  readonly fetchPosts: () => void
-  readonly setPostsPage: (page: number) => void
-  readonly setPostsHasReachedEnd: (hasReachedEnd: boolean) => void
-  readonly loggedIn: boolean
+type PostsProps = {
+  posts: Post[]
+  pending: boolean
+  hasMore: boolean
+  page: number
+  pages: number
+  error: any
+  fetchPosts: () => void
+  setPostsPage: (page: number) => void
+  setPostsHasReachedEnd: (hasReachedEnd: boolean) => void
+  loggedIn: boolean
 }
 
-export default class Posts extends React.PureComponent<PostsProps, {}> {
-  componentDidMount() {
-    this.props.fetchPosts()
-  }
+const Posts = ({ posts, pending, error, fetchPosts }: PostsProps) => {
+  useEffect(() => {
+    fetchPosts()
+  }, [])
 
   // handleNext = () => {
-  //   this.props.setPostsPage(this.props.page + 1)
-  //   this.props.setPostsHasReachedEnd(this.props.pages !== this.props.page)
-  //   this.props.fetchPosts()
+  //   setPostsPage(page + 1)
+  //   setPostsHasReachedEnd(pages !== page)
+  //   fetchPosts()
   // }
 
-  render() {
-    const { posts, pending, error } = this.props
+  return (
+    <Wrapper role="feed" aria-busy="true">
+      {pending && !error ? (
+        <LoaderWrapper>
+          <Spinner />
+        </LoaderWrapper>
+      ) : error ? (
+        <div>{error}</div>
+      ) : (
+        posts.length > 0 && posts.map(p => <PostComponent key={p._id} post={p} />)
+      )}
 
-    return (
-      <Wrapper role="feed" aria-busy="true">
-        {pending && !error ? (
-          <LoaderWrapper>
-            <Spinner />
-          </LoaderWrapper>
-        ) : error ? (
-          <div>{error}</div>
-        ) : (
-          posts.length > 0 && posts.map(p => <PostComponent key={p._id} post={p} />)
-        )}
-
-        {/* {posts.length > 0 && (
+      {/* {posts.length > 0 && (
           <InfiniteScroll
             dataLength={posts.length}
             next={this.props.fetchPosts}
@@ -61,7 +58,8 @@ export default class Posts extends React.PureComponent<PostsProps, {}> {
             ))}
           </InfiniteScroll>
         )} */}
-      </Wrapper>
-    )
-  }
+    </Wrapper>
+  )
 }
+
+export default Posts

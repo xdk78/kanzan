@@ -9,8 +9,8 @@ import PostList from '../containers/PostsContainer'
 import { WithAuthSync } from '../utils/auth'
 import Reply from '../containers/ReplyContainer'
 
-interface IndexProps {
-  readonly loggedIn: boolean
+type IndexProps = {
+  loggedIn: boolean
 }
 
 const Index: React.FunctionComponent<IndexProps> = ({ loggedIn }) => (

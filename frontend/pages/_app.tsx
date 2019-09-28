@@ -17,7 +17,7 @@ dayjs.extend(relativeTime)
 
 const GlobalStyle = createGlobalStyle`${style}`
 
-interface KanzanAppProps {
+type KanzanAppProps = {
   store: Store
   token: string
   Component: any

@@ -2,14 +2,14 @@ import React from 'react'
 import Link from 'next/link'
 import { Wrapper, FormCard, Input, FormButton } from '../Form'
 
-interface LoginFormState {
-  readonly email: string
-  readonly password: string
+type LoginFormState = {
+  email: string
+  password: string
 }
 
-interface LoginFormProps {
-  readonly loggedIn: boolean
-  readonly loginUser: (email: string, password: string) => void
+type LoginFormProps = {
+  loggedIn: boolean
+  loginUser: (email: string, password: string) => void
 }
 
 export default class LoginForm extends React.PureComponent<LoginFormProps, LoginFormState> {

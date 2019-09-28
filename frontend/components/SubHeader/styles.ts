@@ -1,19 +1,16 @@
 import styled from '../../utils/styled-components'
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   height: 36px;
   padding: 0px 4px 0px 4px;
   background: ${props => props.theme.backgroundColor};
   align-items: center;
-  border-bottom: 1px solid
-    ${(
-      props // tslint:disable-next-line:prefer-template
-    ) => `${props.theme.borderColor}3d`};
+  border-bottom: 1px solid ${props => `${props.theme.borderColor}3d`};
 `
 
-const LinkButton = styled.a`
+export const LinkButton = styled.a`
   display: flex;
   border: none;
   border-radius: 4px;
@@ -38,5 +35,3 @@ const LinkButton = styled.a`
     font-size: 12px;
   }
 `
-
-export { Wrapper, LinkButton }

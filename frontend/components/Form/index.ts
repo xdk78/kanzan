@@ -1,13 +1,13 @@
 import styled from '../../utils/styled-components'
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   display: flex;
   align-items: center;
   min-height: 24em;
   justify-content: center;
 `
 
-const FormCard = styled.form`
+export const FormCard = styled.form`
   display: flex;
   flex: 0.3;
   padding: 16px;
@@ -18,7 +18,7 @@ const FormCard = styled.form`
   flex-direction: column;
 `
 
-const FormButton = styled.input`
+export const FormButton = styled.input`
   display: flex;
   justify-content: space-around;
   padding: 8px;
@@ -47,7 +47,7 @@ const FormButton = styled.input`
   }
 `
 
-const Input = styled.input`
+export const Input = styled.input`
   outline: none;
   background: ${props => props.theme.cardColor};
   padding: 8px;
@@ -64,5 +64,3 @@ const Input = styled.input`
     box-shadow: 0 0 1px 1px ${({ theme }) => theme.borderColor};
   }
 `
-
-export { Wrapper, FormCard, Input, FormButton }

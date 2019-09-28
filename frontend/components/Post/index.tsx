@@ -6,11 +6,11 @@ import AuthorBar from '../AuthorBar'
 import { Dropdown, DropdownIconButton } from '../Dropdown'
 import { Spacer, IconButton, IconButtonWrapper, IconLinkButton, Spinner, LoaderWrapper } from '../shared'
 
-interface PostProps {
-  readonly post: PostModel
-  readonly pending: boolean
-  readonly error: any
-  readonly deletePost: (id: string) => void
+type PostProps = {
+  post: PostModel
+  pending: boolean
+  error: any
+  deletePost: (id: string) => void
 }
 
 export default class PostComponent extends React.PureComponent<PostProps, {}> {
